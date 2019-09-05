@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoginService } from './services/login.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'mpsp-front';
+
+  user: any;
+
+  constructor(private loginService: LoginService) {
+    this.loginService.user.subscribe((data) => {
+      this.user = data ? data : sessionStorage.getItem('user')
+    })
+  }
+
+  logout() {
+    this.loginService.logout();
+  }
+
 }

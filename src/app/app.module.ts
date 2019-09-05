@@ -1,9 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginModule } from './login/login.module';
+import { ConsultaModule } from './consulta/consulta.module';
 
 @NgModule({
   declarations: [
@@ -12,7 +14,9 @@ import { LoginModule } from './login/login.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    LoginModule
+    HttpClientModule,
+    LoginModule,
+    ConsultaModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
