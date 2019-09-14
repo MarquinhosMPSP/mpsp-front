@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError } from 'rxjs/operators'
-import { errorHandle } from '../utility/utility'
+import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject } from 'rxjs';
 
@@ -20,23 +18,20 @@ export class LoginService {
 
   login(loginData) {
     return this.http.post(URL + 'autenticar', loginData)
-      .pipe(
-        catchError(errorHandle)
-      ).toPromise();
   }
 
   logout() {
     sessionStorage.removeItem('isLogged');
     sessionStorage.removeItem('user');
     location.reload()
-    this.user.next('')
+    this.user.next(null)
   }
 
   isLoggedIn = () => sessionStorage.getItem('isLogged') != null
 
-  setUser = (data) => {
-    sessionStorage.setItem('user', data);
-    this.user.next(data);
+  setUser = ({ nome }: any) => {
+    sessionStorage.setItem('user', nome);
+    this.user.next(nome);
   }
 
 }

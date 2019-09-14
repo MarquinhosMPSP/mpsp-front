@@ -11,9 +11,8 @@ export class AppComponent {
   user: any;
 
   constructor(private loginService: LoginService) {
-    this.loginService.user.subscribe((data) => {
-      this.user = data ? data : sessionStorage.getItem('user')
-    })
+    this.loginService.user.subscribe((data) => 
+      this.user = data || sessionStorage.getItem('user'))
   }
 
   logout() {

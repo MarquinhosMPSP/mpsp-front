@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ReportService } from '../services/report.service';
 
 @Component({
   selector: 'app-consulta',
@@ -7,11 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConsultaComponent implements OnInit {
 
-  person = { type: 'Física' }
+  type = 'Física'
+  report = { nome: 'Daniel Lucas R Souza', idade: 22, cpf: '46618865859', estadoCivil: 'Solteiro' }
 
-  constructor() { }
+  constructor(private reportService: ReportService) { }
 
   ngOnInit() {
+  }
+
+  generateReport() {
+    this.reportService.generateReport()
+      .subscribe(data =>
+        console.log(data)
+      )
   }
 
 }

@@ -1,18 +1,33 @@
-<h1 class="text-center">Relatório Pessoa {{person.type}}</h1>
+<h1 class="text-center">Relatório Pessoa {{type}}</h1>
 
-<div class="dados">
-    <ul class="list-group list-group-flush">
-        <li class="list-group-item">
-            <strong>Nome</strong>:
-        </li>
-        <li class="list-group-item">
-            <strong>Idade</strong>:
-        </li>
-        <li class="list-group-item">
-            <strong>CPF</strong>:
-        </li>
-        <li class="list-group-item">
-            <strong>Estado civil</strong>:
-        </li>
-    </ul>
+<ng-container *ngIf="report; else noData">
+    <div class="data my-5 text-uppercase">
+        <table class="table table-responsive-sm">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Idade</th>
+                    <th>CPF</th>
+                    <th>Estado civil</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{report.nome}}</td>
+                    <td>{{report.idade}}</td>
+                    <td>{{report.cpf}}</td>
+                    <td>{{report.estadoCivil}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</ng-container>
+<ng-template #noData>
+    <div class="no-data d-flex justify-content-center m-5">
+        <p class="text-danger">Não há dados</p>
+    </div>
+</ng-template>
+
+<div class="d-flex justify-content-center">
+    <button class="btn btn-outline-danger btn-lg" (click)="generateReport()">Gerar Relatório</button>
 </div>
