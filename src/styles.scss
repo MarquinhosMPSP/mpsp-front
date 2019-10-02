@@ -1,5 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Baloo&display=swap');
+
 a, a:hover {
     text-decoration: none!important;
     color: #000!important;
+}
+
+body {
+  background: #f0ebeb!important;
+}
+
+.brand-font {
+  font-family: 'Baloo', cursive;
 }

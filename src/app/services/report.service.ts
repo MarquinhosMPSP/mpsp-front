@@ -11,6 +11,8 @@ export class ReportService {
 
   constructor(private http: HttpClient) { }
 
-  generateReport = () => this.http.get(URL + 'consultar')
+  generateReport = (user, operation) => this.http.get(`${URL}/consultar/${user}/${operation}`)
+  
+  generateHistory = (user) => this.http.get(`${URL}/historico/${user}`)
   
 }

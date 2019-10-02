@@ -8,6 +8,8 @@ import { AppComponent } from './app.component';
 import { LoginModule } from './login/login.module';
 import { ConsultaModule } from './consulta/consulta.module';
 import { ToastrModule } from 'ngx-toastr';
+import { SharedModule } from './shared/shared.module';
+// import { ExportAsModule } from 'ngx-export-as';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { ToastrModule } from 'ngx-toastr';
     HttpClientModule,
     LoginModule,
     ConsultaModule,
-    ToastrModule.forRoot()
+    SharedModule,
+    ToastrModule.forRoot(),
+    // ExportAsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -17,7 +17,7 @@ export class LoginService {
   }
 
   login(loginData) {
-    return this.http.post(URL + 'autenticar', loginData)
+    return this.http.post(`${URL}/autenticar`, loginData)
   }
 
   logout() {
@@ -33,5 +33,7 @@ export class LoginService {
     sessionStorage.setItem('user', nome);
     this.user.next(nome);
   }
+  
+  getUser = () => this.user.value || sessionStorage.getItem('user')
 
 }
