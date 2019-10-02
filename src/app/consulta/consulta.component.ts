@@ -12,7 +12,7 @@ import * as jsPDF from 'jspdf'
 export class ConsultaComponent implements OnInit {
 
   report: any;
-  history: [];
+  history: any;
   @ViewChild('reportContent', { static: false }) reportContent: ElementRef;
 
   constructor(private reportService: ReportService, private toastr: ToastrService, private loginService: LoginService) { }
