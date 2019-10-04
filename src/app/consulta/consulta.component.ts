@@ -29,7 +29,7 @@ export class ConsultaComponent implements OnInit {
     this.report = this.generateReport('getOne', id)
   }
 
-  generateReport(operation: string, report_id = null) {
+  generateReport(operation: string, report_id = 1) {
     this.reportService.generateReport(this.user, operation, report_id)
       .subscribe({
         next: (data) => {
