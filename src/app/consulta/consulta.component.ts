@@ -30,7 +30,10 @@ export class ConsultaComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.report = this.transformReport(data)
-          if (operation !== 'last') this.toastr.success('Relatório gerado com sucesso!')
+          if (operation !== 'last') {
+            this.toastr.success('Relatório gerado com sucesso!')
+            this.generateHistory()
+          }
         },
         error: (err) => this.toastr.error(err.error.message || 'Ocorreu um erro ao gerar relatório')
       });
