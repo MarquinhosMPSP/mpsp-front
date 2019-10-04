@@ -58,8 +58,8 @@
                                     <tr *ngFor="let report of history" class="text-center">
                                         <td *ngFor="let field of report.fields">{{field || '-'}}</td>
                                         <td>
-                                            <button class="btn btn-transparent" (click)="changeView(report)">
-                                                <i class="fa fa-eyne"></i>
+                                            <button class="btn btn-transparent" (click)="changeView(report._id)">
+                                                <i class="fa fa-eye"></i>
                                             </button>
                                         </td>
                                     </tr>

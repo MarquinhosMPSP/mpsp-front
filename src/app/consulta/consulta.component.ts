@@ -25,12 +25,12 @@ export class ConsultaComponent implements OnInit {
     this.generateHistory()
   }
 
-  changeView(data) {
-    this.report = data
+  changeView(id) {
+    this.report = this.generateReport('getOne', id)
   }
 
-  generateReport(operation: string) {
-    this.reportService.generateReport(this.user, operation)
+  generateReport(operation: string, report_id = null) {
+    this.reportService.generateReport(this.user, operation, report_id)
       .subscribe({
         next: (data) => {
           this.report = this.transformReport(data)
