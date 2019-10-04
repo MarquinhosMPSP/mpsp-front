@@ -34,7 +34,7 @@ export class ConsultaComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.report = this.transformReport(data)
-          if (operation !== 'last') {
+          if (operation !== 'last' && operation !== 'getOne') {
             this.toastr.success('Relatório gerado com sucesso!')
             this.generateHistory()
           }
@@ -69,7 +69,7 @@ export class ConsultaComponent implements OnInit {
 
   transformReport(data) {
     let dataArray = Object.entries(data).filter(item => !item[0].match('_id'))
-    let withoutPath = dataArray.filter(item => !item[0].match(/path/i) || !item[0].match(/__v/))
+    let withoutPath = dataArray.filter(item => !item[0].match(/path/i) && !item[0].match(/__v/))
     let fields = withoutPath.map(i => ({ name: i[0], content: i[1] }))
     return { _id: data['_id'], fields, imgs: dataArray.filter(item => item[0].match(/pathimg/i)), pdfs: dataArray.filter(item => item[0].match(/pathpdf/i)) }
   }
