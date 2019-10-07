@@ -4,13 +4,31 @@
     <h1 class="h3 mb-3 text-center text-light">Fazer Login</h1>
     <form id="login-form" (ngSubmit)="login()" [formGroup]="form">
       <label for="cpf" class="sr-only">CPF</label>
-      <input type="email" id="cpf" class="form-control" placeholder="Digite seu CPF" formControlName="cpf"
-        required autofocus>
+      <input
+        type="email"
+        id="cpf"
+        class="form-control"
+        placeholder="Digite seu CPF"
+        formControlName="cpf"
+        required
+        autofocus
+      />
       <label for="senha" class="sr-only">Senha</label>
-      <input type="password" id="senha" class="form-control" placeholder="Digite sua senha"
-        formControlName="password" required>
+      <input
+        type="password"
+        id="senha"
+        class="form-control"
+        placeholder="Digite sua senha"
+        formControlName="password"
+        required
+      />
       <button class="btn btn-lg btn-primary btn-block">Entrar</button>
     </form>
-    <p *ngIf="error" class="text-danger text-center">{{error}}</p>
+    <p *ngIf="error" class="text-danger text-center">{{ error }}</p>
   </div>
 </div>
+
+<ng-container *ngIf="!loading; else loader"> </ng-container>
+<ng-template #loader>
+  <ngx-spinner type="ball-clip-rotate"></ngx-spinner>
+</ng-template>
