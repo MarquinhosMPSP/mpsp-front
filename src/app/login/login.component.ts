@@ -47,9 +47,11 @@ export class LoginComponent implements OnInit {
           this.loginService.setUser(response);
           sessionStorage.setItem("isLogged", "true");
           this.router.navigate(["consulta"]);
+          this.loader.hide();
+          this.loading = false;
         },
-        error: (err: HttpErrorResponse) => (this.error = err.error.message),
-        complete: () => {
+        error: (err: HttpErrorResponse) => {
+          this.error = err.error.message;
           this.loader.hide();
           this.loading = false;
         }
