@@ -2,8 +2,12 @@ import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { ReportService } from "../services/report.service";
 import { ToastrService } from "ngx-toastr";
 import { LoginService } from "../services/login.service";
-import { Socket } from "ngx-socket-io";
+import { environment } from "src/environments/environment";
+import * as io from "socket.io-client";
 import * as jsPDF from "jspdf";
+
+const user = sessionStorage.getItem("user");
+const socket = io(environment.api, { query: { user } });
 
 @Component({
   selector: "app-consulta",
@@ -18,14 +22,13 @@ export class ConsultaComponent implements OnInit {
   constructor(
     private reportService: ReportService,
     private toastr: ToastrService,
-    private loginService: LoginService,
-    private socket: Socket
+    private loginService: LoginService
   ) {}
 
   user: any;
 
   ngOnInit() {
-    this.socket.fromEvent("report").subscribe(data => {
+    socket.on("report", data => {
       this.toastr.success("Relatório gerado com sucesso!");
       this.report = this.transformReport(data);
       this.getHistory();

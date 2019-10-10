@@ -9,13 +9,7 @@ import { LoginModule } from "./login/login.module";
 import { ConsultaModule } from "./consulta/consulta.module";
 import { ToastrModule } from "ngx-toastr";
 import { SharedModule } from "./shared/shared.module";
-import { SocketIoModule, SocketIoConfig } from "ngx-socket-io";
 import { environment } from "src/environments/environment.prod";
-
-const config: SocketIoConfig = {
-  url: environment.api,
-  options: { query: { user: sessionStorage.getItem("user") } }
-};
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,8 +21,7 @@ const config: SocketIoConfig = {
     LoginModule,
     ConsultaModule,
     SharedModule,
-    ToastrModule.forRoot(),
-    SocketIoModule.forRoot(config)
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
