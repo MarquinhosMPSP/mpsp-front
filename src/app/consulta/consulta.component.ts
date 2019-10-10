@@ -6,15 +6,13 @@ import { environment } from "src/environments/environment";
 import * as io from "socket.io-client";
 import * as jsPDF from "jspdf";
 
-const user = sessionStorage.getItem("user");
-const socket = io(environment.api, { query: { user } });
-
 @Component({
   selector: "app-consulta",
   templateUrl: "./consulta.component.html",
   styleUrls: ["./consulta.component.scss"]
 })
 export class ConsultaComponent implements OnInit {
+  socket: any;
   report: any;
   history: any;
   @ViewChild("reportContent", { static: false }) reportContent: ElementRef;
@@ -23,12 +21,15 @@ export class ConsultaComponent implements OnInit {
     private reportService: ReportService,
     private toastr: ToastrService,
     private loginService: LoginService
-  ) {}
+  ) {
+    const user = sessionStorage.getItem("user");
+    this.socket = io(environment.api, { query: { user } });
+  }
 
   user: any;
 
   ngOnInit() {
-    socket.on("report", data => {
+    this.socket.on("report", data => {
       this.toastr.success("Relatório gerado com sucesso!");
       this.report = this.transformReport(data);
       this.getHistory();
