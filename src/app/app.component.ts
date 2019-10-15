@@ -1,12 +1,8 @@
-import { Component } from '@angular/core';
-import { LoginService } from './services/login.service';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.scss"]
 })
-export class AppComponent {
-
-  constructor() {}
-}
+export class AppComponent {}

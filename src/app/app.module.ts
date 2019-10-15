@@ -5,11 +5,8 @@ import { HttpClientModule } from "@angular/common/http";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { LoginModule } from "./login/login.module";
-import { ConsultaModule } from "./consulta/consulta.module";
 import { ToastrModule } from "ngx-toastr";
-import { SharedModule } from "./shared/shared.module";
-import { environment } from "src/environments/environment.prod";
+import { PagesModule } from "./pages/pages.module";
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,9 +15,7 @@ import { environment } from "src/environments/environment.prod";
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    LoginModule,
-    ConsultaModule,
-    SharedModule,
+    PagesModule,
     ToastrModule.forRoot()
   ],
   providers: [],

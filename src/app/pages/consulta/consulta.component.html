@@ -1,0 +1,56 @@
+<div class="body">
+  <app-menu></app-menu>
+  <div class="container content">
+
+    <div class="row">
+      <div class="box">
+        <app-historico [history]="history" (changeView)="changeView($event)"></app-historico>
+      </div>
+
+      <div class="box">
+        <div class="d-flex justify-content-between">
+          <h3>Novo</h3>
+          <i-feather name="plus-circle">
+          </i-feather>
+        </div>
+        <hr />
+        <form class="row">
+          <div class="col">
+            <div class="form-group">
+              <label for="cnpj">CNPJ</label>
+              <input type="text" name="cnpj" class="form-control" placeholder="Digite o CNPJ" />
+            </div>
+            <div class="form-group">
+              <label for="nome">Nome</label>
+              <input type="text" name="nome" class="form-control" placeholder="Digite o nome" />
+            </div>
+            <div class="form-group">
+              <label for="nascimento">Nascimento</label>
+              <input type="date" name="nascimento" class="form-control" />
+            </div>
+          </div>
+        </form>
+        <div class="d-flex justify-content-center">
+          <button class="btn btn-indigo btn-lg" (click)="generateReport()">
+            Gerar relatório
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="box">
+        <app-relatorio [report]="report"></app-relatorio>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="footer">
+    <div class="d-flex text-light p-3 justify-content-center" style="background: var(--indigo);">
+      <span>Desenvolvido por <strong>DJIR</strong> - 2019</span>
+    </div>
+  </div>
+
+</div>

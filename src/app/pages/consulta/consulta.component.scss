@@ -1,0 +1,13 @@
+#pills-tab > li.nav-item > a.nav-link.active {
+  color: #fff !important;
+  background: var(--red) !important;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  .content {
+    flex: 1;
+  }
+}

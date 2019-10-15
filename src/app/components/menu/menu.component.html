@@ -1,0 +1,19 @@
+<div class="menu d-flex py-2">
+  <div class="container">
+    <div class="d-flex justify-content-between">
+      <h1 class="brand-font m-0">> unikor</h1>
+      <div class="user">
+        <div class="d-flex align-items-center dropdown">
+          <ngx-avatar [name]="user" bgColor='#6610f2' size="40"></ngx-avatar>
+          <a *ngIf="user" class="btn btn-transparent" href="#" role="button" id="dropdownMenuLink"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i-feather name="menu"></i-feather>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" (click)="logout()">Sair</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

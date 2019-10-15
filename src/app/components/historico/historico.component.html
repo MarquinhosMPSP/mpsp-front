@@ -1,0 +1,38 @@
+<div class="d-flex justify-content-between">
+	<h3>Histórico</h3>
+	<i-feather name="list">
+	</i-feather>
+</div>
+<hr />
+<ng-container *ngIf="history; else noHistory">
+	<div class="text-uppercase">
+		<table class="table table-borderless table-responsive m-auto">
+			<thead>
+				<tr class="text-center">
+					<th scope="col">#</th>
+					<th scope="col">CNPJ</th>
+					<th scope="col">Data do Relatório</th>
+					<th scope="col">Visualizar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let report of history; let i = index" class="text-center">
+					<th scope="row">{{ i + 1 }}</th>
+					<td>{{ report.cnpj }}</td>
+					<td>{{ report.dataRelatorio }}</td>
+					<td>
+						<i-feather (click)="changeView.emit(report._id)" name="eye"
+							style="height: 20px; width: 20px; cursor:pointer">
+						</i-feather>
+					</td>
+				</tr>
+				<tr></tr>
+			</tbody>
+		</table>
+	</div>
+</ng-container>
+<ng-template #noHistory>
+	<div class="d-flex justify-content-center mt-5">
+		<p class="text-danger">Não há dados disponíveis.</p>
+	</div>
+</ng-template>

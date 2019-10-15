@@ -1,0 +1,24 @@
+#login {
+  background: url("../../../assets/banner-2-min.png") no-repeat;
+  background-position: center;
+  background-size: cover;
+  #login-body {
+    width: 100%;
+    #login-form {
+      width: 100%;
+      max-width: 330px;
+      padding: 15px;
+      margin: 0 auto;
+      #cpf {
+        margin-bottom: -1px;
+        border-bottom-right-radius: 0px;
+        border-bottom-left-radius: 0px;
+      }
+      #senha {
+        border-top-right-radius: 0px;
+        border-top-left-radius: 0px;
+        margin-bottom: 0.5em;
+      }
+    }
+  }
+}
