@@ -9,7 +9,7 @@
 <hr />
 <ng-container *ngIf="report; else noData">
 
-	<div #reportContent class="row text-uppercase">
+	<div #reportContent class="row body text-uppercase">
 		<ng-container *ngFor="let item of report | keyvalue">
 			<div class="col-3 mb-3">
 				<span class="d-block font-weight-bold text-break">{{ item.key }}:</span>
