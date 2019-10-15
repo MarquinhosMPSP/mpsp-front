@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 
 @Component({
   selector: "app-relatorio",
@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from "@angular/core";
 })
 export class RelatorioComponent implements OnInit {
   @Input("report") report: any;
+  @Output() export = new EventEmitter();
 
   constructor() {}
 

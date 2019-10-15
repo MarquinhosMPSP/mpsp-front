@@ -40,12 +40,10 @@
 
     <div class="row">
       <div class="box">
-        <app-relatorio [report]="report"></app-relatorio>
+        <app-relatorio [report]="report" (export)="export($event)"></app-relatorio>
       </div>
     </div>
-
   </div>
-
 
   <div class="footer">
     <div class="d-flex bg-white p-3 justify-content-center">

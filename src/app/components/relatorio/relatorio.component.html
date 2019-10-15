@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-between">
 	<h3>Visualização</h3>
-	<button class="btn btn-indigo" (click)="export()">
+	<button class="btn btn-indigo" (click)="export.emit()">
 		<span class="mr-2">PDF</span>
 		<i-feather (click)="changeView.emit(report._id)" name="download" style="height: 20px; width: 20px; cursor:pointer">
 		</i-feather>
