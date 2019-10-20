@@ -29,7 +29,8 @@ a:hover {
   margin: 1em;
   padding: 2em;
   flex: 1;
-  max-width: 90vw;
+  min-width: 35%;
+  max-width: 100%;
 }
 
 .btn-indigo {
