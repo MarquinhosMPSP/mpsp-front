@@ -5,6 +5,7 @@ import { MenuModule } from "../../components/menu/menu.module";
 import { HistoricoModule } from "src/app/components/historico/historico.module";
 import { RelatorioModule } from "src/app/components/relatorio/relatorio.module";
 import { IconsModule } from "src/app/icons/icons.module";
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [ConsultaComponent],
@@ -13,7 +14,8 @@ import { IconsModule } from "src/app/icons/icons.module";
     MenuModule,
     HistoricoModule,
     RelatorioModule,
-    IconsModule
+    IconsModule,
+    FormsModule
   ]
 })
 export class ConsultaModule {}

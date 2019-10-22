@@ -25,19 +25,19 @@
             <div class="col-lg-3">
               <div class="form-group">
                 <label for="cpf">CPF</label>
-                <input type="text" name="cpf" class="form-control" placeholder="Digite o CPF" />
+                <input type="text" name="cpf" class="form-control" [(ngModel)]="cpf" placeholder="Digite o CPF" />
               </div>
             </div>
             <div class="col-lg-3">
               <div class="form-group">
                 <label for="rg">RG</label>
-                <input type="text" name="rg" class="form-control" placeholder="Digite o RG" />
+                <input type="text" name="rg" class="form-control" [(ngModel)]="rg" placeholder="Digite o RG" />
               </div>
             </div>
             <div class="col-lg-6">
               <div class="form-group">
                 <label for="nome">Nome</label>
-                <input type="text" name="nome" class="form-control" placeholder="Digite o nome" />
+                <input type="text" name="nome" class="form-control" [(ngModel)]="nome" placeholder="Digite o nome" />
               </div>
             </div>
           </div>
@@ -49,13 +49,14 @@
             <div class="col-lg-3">
               <div class="form-group">
                 <label for="cnpj">CNPJ</label>
-                <input type="text" name="cnpj" class="form-control" placeholder="Digite o CNPJ" />
+                <input type="text" name="cnpj" class="form-control" [(ngModel)]="cnpj" placeholder="Digite o CNPJ" />
               </div>
             </div>
             <div class="col-lg-6">
               <div class="form-group">
                 <label for="empresa">Empresa</label>
-                <input type="text" name="empresa" class="form-control" placeholder="Digite a empresa" />
+                <input type="text" name="empresa" class="form-control" [(ngModel)]="empresa"
+                  placeholder="Digite a empresa" />
               </div>
             </div>
           </div>
@@ -67,13 +68,15 @@
             <div class="col-lg-3">
               <div class="form-group">
                 <label for="nrprocesso">Número do processo</label>
-                <input type="text" name="nrprocesso" class="form-control" placeholder="Digite o número do processo" />
+                <input type="text" name="nrprocesso" class="form-control" [(ngModel)]="nrprocesso"
+                  placeholder="Digite o número do processo" />
               </div>
             </div>
             <div class="col-lg-3">
               <div class="form-group">
                 <label for="pispasep">PIS/PASEP</label>
-                <input type="text" name="pispasep" class="form-control" placeholder="Digite o PIS/PASEP" />
+                <input type="text" name="pispasep" class="form-control" [(ngModel)]="pispasep"
+                  placeholder="Digite o PIS/PASEP" />
               </div>
             </div>
           </div>

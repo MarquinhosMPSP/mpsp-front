@@ -17,6 +17,14 @@ export class ConsultaComponent implements OnInit {
   report: any;
   history: any;
 
+  cpf: string = null;
+  rg: string = null;
+  nome: string = null;
+  cnpj: string = null;
+  empresa: string = null;
+  nrprocesso: string = null;
+  pispasep: string = null;
+
   constructor(
     private reportService: ReportService,
     private toastr: ToastrService,
@@ -46,12 +54,23 @@ export class ConsultaComponent implements OnInit {
   }
 
   generateReport() {
-    this.reportService.generateReport(this.user).subscribe({
-      next: ({ message }) => {
-        this.toastr.info(message);
-      },
-      error: () => this.toastr.error("Ocorreu um erro ao gerar relatório")
-    });
+    this.reportService
+      .generateReport(
+        this.user,
+        this.cpf,
+        this.rg,
+        this.nome,
+        this.cnpj,
+        this.empresa,
+        this.nrprocesso,
+        this.pispasep
+      )
+      .subscribe({
+        next: ({ message }) => {
+          this.toastr.info(message);
+        },
+        error: () => this.toastr.error("Ocorreu um erro ao gerar relatório")
+      });
   }
 
   getReport() {

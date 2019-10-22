@@ -11,6 +11,7 @@
 				<tr class="text-center">
 					<th scope="col">#</th>
 					<th scope="col">CNPJ</th>
+					<th scope="col">CPF</th>
 					<th scope="col">Nome</th>
 					<th scope="col">Data do Relatório</th>
 					<th scope="col">Visualizar</th>
@@ -19,9 +20,10 @@
 			<tbody>
 				<tr *ngFor="let report of history; let i = index" class="text-center">
 					<th scope="row">{{ i + 1 }}</th>
-					<td>{{ report.cnpj }}</td>
-					<td>{{ report.nome }}</td>
-					<td>{{ report.dataRelatorio }}</td>
+					<td>{{ report.cnpj || '-' }}</td>
+					<td>{{ report.cpf || '-' }}</td>
+					<td>{{ report.nome || '-' }}</td>
+					<td>{{ report.dataRelatorio || '-' }}</td>
 					<td>
 						<i-feather (click)="changeView.emit(report._id)" name="eye"
 							style="height: 20px; width: 20px; cursor:pointer">

@@ -10,7 +10,27 @@ const URL = environment.api;
 export class ReportService {
   constructor(private http: HttpClient) {}
 
-  generateReport: any = user => this.http.get(`${URL}/gerar/${user}`);
+  // generateReport: any = user => this.http.get(`${URL}/gerar/${user}`);
+  generateReport: any = (
+    usuario,
+    cpf,
+    rg,
+    nome,
+    cnpj,
+    empresa,
+    nrprocesso,
+    pispasep
+  ) =>
+    this.http.post(`${URL}/gerar`, {
+      usuario,
+      cpf,
+      rg,
+      nome,
+      cnpj,
+      empresa,
+      nrprocesso,
+      pispasep
+    });
 
   getReport: any = user => this.http.get(`${URL}/consultar/${user}`);
 
