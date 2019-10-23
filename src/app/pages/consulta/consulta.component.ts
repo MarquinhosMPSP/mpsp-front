@@ -5,6 +5,7 @@ import { LoginService } from "../../services/login.service";
 import { environment } from "src/environments/environment";
 import * as io from "socket.io-client";
 import * as jsPDF from "jspdf";
+import { npost } from "q";
 
 @Component({
   selector: "app-consulta",
@@ -13,6 +14,7 @@ import * as jsPDF from "jspdf";
 })
 export class ConsultaComponent implements OnInit {
   @ViewChild("reportContent", { static: false }) reportContent: ElementRef;
+  @ViewChild("visualizacao", { static: false }) viewDivEl: ElementRef;
   socket: any;
   report: any;
   history: any;
@@ -24,6 +26,8 @@ export class ConsultaComponent implements OnInit {
   empresa: string = null;
   nrprocesso: string = null;
   pispasep: string = null;
+
+  portaisValidados = ["Infocrim"];
 
   constructor(
     private reportService: ReportService,
@@ -38,6 +42,7 @@ export class ConsultaComponent implements OnInit {
 
   ngOnInit() {
     this.socket.on("report", data => {
+      console.log(data);
       this.toastr.success("Relatório gerado com sucesso!");
       this.report = this.transformReport(data);
       this.getHistory();
@@ -47,9 +52,29 @@ export class ConsultaComponent implements OnInit {
     this.getHistory();
   }
 
-  changeView(id) {
-    console.log(id);
+  validatePortals() {
+    this.portaisValidados = Object.entries({
+      Arisp: () => this.isValid(this.cpf || this.cnpj),
+      Arpenp: () => this.isValid(this.nrprocesso),
+      Cadesp: () => this.isValid(this.cnpj),
+      Caged: () => this.isValid(this.cnpj && this.pispasep),
+      Censec: () => this.isValid(this.cpf || this.cnpj),
+      Detran: () => this.isValid(this.cpf || this.cnpj),
+      Infocrim: () => true,
+      Jucesp: () => this.isValid(this.empresa),
+      Siel: () => this.isValid(this.nome && this.nrprocesso),
+      Sivec: () => this.isValid(this.rg && this.nome)
+    })
+      .filter(([name, val]) => {
+        if (val()) return name;
+      })
+      .map(([name]) => name);
+  }
 
+  isValid = item => item != null && item != "";
+
+  changeView(id) {
+    this.viewDivEl.nativeElement.scrollIntoView();
     this.report = this.history.filter(item => item._id == id)[0];
   }
 
@@ -88,7 +113,6 @@ export class ConsultaComponent implements OnInit {
     this.reportService.getHistory(this.user).subscribe({
       next: data => {
         this.history = this.transformHistory(data);
-        console.log(this.history);
       },
       error: err => {
         if (err.status === 404) this.toastr.warning("Não há histórico");

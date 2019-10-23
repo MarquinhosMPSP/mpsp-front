@@ -1,11 +1,12 @@
-<div class="d-flex justify-content-between">
-	<h3>Visualização</h3>
+<div class="d-flex justify-content-between align-items-center">
+	<h3 class="m-0">Visualização</h3>
 	<button class="btn btn-indigo" (click)="export()">
 		<span class="mr-2">PDF</span>
 		<i-feather name="download" style="height: 20px; width: 20px; cursor:pointer">
 		</i-feather>
 	</button>
 </div>
+<span>{{report?.dataRelatorio}}</span>
 <hr />
 <ng-container *ngIf="report; else noData">
 
@@ -15,9 +16,11 @@
 			<hr>
 			<div class="mb-3">
 				<!-- PDF -->
-				<pdf-viewer [fit-to-page]="true" [src]="pathBase+report.arispPathPdf" [render-text]="true"
-					style="display: block;">
-				</pdf-viewer>
+				<ng-container *ngIf="report.arispPathPdf">
+					<pdf-viewer [fit-to-page]="true" [src]="pathBase+report.arispPathPdf" [render-text]="true"
+						style="display: block;">
+					</pdf-viewer>
+				</ng-container>
 			</div>
 		</div>
 
@@ -165,15 +168,18 @@
 			<h3 class="mb-1 font-weight-bold">INFOCRIM</h3>
 			<hr>
 			<!-- PDF -->
-			<pdf-viewer [fit-to-page]="true" [src]="pathBase+report.infocrimPathPdf" [render-text]="true"
-				style="display: block;">
-			</pdf-viewer>
+			<ng-container *ngIf="report.infocrimPathPdf">
+				<pdf-viewer [fit-to-page]="true" [src]="pathBase+report.infocrimPathPdf" [render-text]="true"
+					style="display: block;">
+				</pdf-viewer>
+			</ng-container>
 		</div>
 
 		<div #jucesp class="col-12 mt-3 card pt-3">
 			<h3 class="mb-1 font-weight-bold">JUCESP</h3>
 			<hr>
 			<div class="mb-3">
+				<span class="d-block mb-2"><strong>Nome da empresa:</strong> {{ report.nomeDaEmpresa || '-'}}</span>
 				<span class="d-block mb-2"><strong>Tipo de empresa:</strong> {{ report.tipoDeEmpresa || '-'}}</span>
 				<span class="d-block mb-2"><strong>Data da constituicao:</strong> {{ report.dataDaConstituicao || '-'}}</span>
 				<span class="d-block mb-2"><strong>Inicio da atividade:</strong> {{ report.inicioDaAtividade || '-'}}</span>
@@ -186,6 +192,12 @@
 				<span class="d-block mb-2"><strong>Complemento:</strong> {{ report.complemento || '-'}}</span>
 				<span class="d-block mb-2"><strong>CEP:</strong> {{ report.cep || '-'}}</span>
 				<span class="d-block mb-2"><strong>UF:</strong> {{ report.uf || '-'}}</span>
+				<!-- PDF -->
+				<ng-container *ngIf="report.jucespPathPdf">
+					<pdf-viewer [fit-to-page]="true" [src]="pathBase+report.jucespPathPdf" [render-text]="true"
+						style="display: block;">
+					</pdf-viewer>
+				</ng-container>
 			</div>
 		</div>
 
