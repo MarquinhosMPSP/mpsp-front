@@ -1,9 +1,17 @@
 import { NgModule } from "@angular/core";
 
 import { FeatherModule } from "angular-feather";
-import * as Feather from "angular-feather/icons";
+import {
+  Search,
+  Plus,
+  Check,
+  X,
+  Eye,
+  Menu,
+  Download
+} from "angular-feather/icons";
 
-const icons = { ...Feather };
+const icons = { Search, Plus, Check, X, Eye, Menu, Download };
 
 @NgModule({
   declarations: [],
