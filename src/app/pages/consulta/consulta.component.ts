@@ -5,7 +5,6 @@ import { LoginService } from "../../services/login.service";
 import { environment } from "src/environments/environment";
 import * as io from "socket.io-client";
 import * as jsPDF from "jspdf";
-import { npost } from "q";
 
 @Component({
   selector: "app-consulta",
@@ -14,7 +13,6 @@ import { npost } from "q";
 })
 export class ConsultaComponent implements OnInit {
   @ViewChild("reportContent", { static: false }) reportContent: ElementRef;
-  @ViewChild("visualizacao", { static: false }) viewDivEl: ElementRef;
   socket: any;
   report: any;
   history: any;
@@ -52,6 +50,10 @@ export class ConsultaComponent implements OnInit {
     this.getHistory();
   }
 
+  openModal = () => {
+    (<any>$("#formModal")).modal("toggle");
+  };
+
   validatePortals() {
     this.portaisValidados = Object.entries({
       Arisp: () => this.isValid(this.cpf || this.cnpj),
@@ -74,11 +76,12 @@ export class ConsultaComponent implements OnInit {
   isValid = item => item != null && item != "";
 
   changeView(id) {
-    this.viewDivEl.nativeElement.scrollIntoView();
+    (<any>$("#viewModal")).modal("toggle");
     this.report = this.history.filter(item => item._id == id)[0];
   }
 
   generateReport() {
+    (<any>$("#formModal")).modal("toggle");
     this.reportService
       .generateReport(
         this.user,

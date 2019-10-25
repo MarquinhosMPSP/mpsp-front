@@ -8,6 +8,8 @@ import { AppComponent } from "./app.component";
 import { ToastrModule } from "ngx-toastr";
 import { PagesModule } from "./pages/pages.module";
 
+import * as jquery from "jquery";
+
 @NgModule({
   declarations: [AppComponent],
   imports: [

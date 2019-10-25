@@ -2,7 +2,6 @@ import {
   Component,
   OnInit,
   Input,
-  EventEmitter,
   ViewChild,
   ElementRef,
   Renderer2
@@ -10,7 +9,6 @@ import {
 import { environment } from "src/environments/environment";
 import * as jsPDF from "jspdf";
 import html2canvas from "html2canvas";
-import { async } from "q";
 
 @Component({
   selector: "app-relatorio",

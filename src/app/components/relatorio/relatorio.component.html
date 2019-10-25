@@ -1,251 +1,263 @@
-<div class="d-flex justify-content-between align-items-center">
-	<h3 class="m-0">Visualização</h3>
-	<button class="btn btn-indigo" (click)="export()">
-		<span class="mr-2">PDF</span>
-		<i-feather name="download" style="height: 20px; width: 20px; cursor:pointer">
-		</i-feather>
-	</button>
-</div>
-<span>{{report?.dataRelatorio}}</span>
-<hr />
 <ng-container *ngIf="report; else noData">
-
 	<div #reportContent id="reportContent" class="row body text-uppercase">
-		<div #arisp class="col-12 card pt-3">
-			<h3 class="mb-1 font-weight-bold">ARISP</h3>
-			<hr>
-			<div class="mb-3">
+		<div #arisp *ngIf="report.sucesso.includes('Arisp')" class="col-12 pt-3">
+			<div class="card p-4">
+				<h5 class="mb-1 font-weight-bold">Dados Imobiliários</h5>
+				<hr>
+				<div class="mb-3">
+					<!-- PDF -->
+					<ng-container *ngIf="report.arispPathPdf">
+						<pdf-viewer [fit-to-page]="true" [src]="pathBase+report.arispPathPdf" [render-text]="true"
+							style="display: block;">
+						</pdf-viewer>
+					</ng-container>
+				</div>
+			</div>
+		</div>
+
+		<div #arpenp *ngIf="report.sucesso.includes('Arpenp')" class="col-12 mt-3 pt-3">
+			<div class="card p-4">
+				<h5 class="mb-1 font-weight-bold">Dados de Registro Civil</h5>
+				<hr>
+				<span class="d-block mb-2"><strong>Carta registro:</strong> {{ report.cartregistro || "-" }}</span>
+				<span class="d-block mb-2"><strong>CNS:</strong> {{ report.cns || "-" }}</span>
+				<span class="d-block mb-2"><strong>Nome 1:</strong> {{ report.nome1 || "-" }}</span>
+				<span class="d-block mb-2"><strong>Novo nome 1:</strong> {{ report.nvnome1 || "-" }}</span>
+				<span class="d-block mb-2"><strong>Nome 2:</strong> {{ report.nome2 || "-" }}</span>
+				<span class="d-block mb-2"><strong>Novo nome 2:</strong> {{ report.nvnome2 || "-" }}</span>
+				<span class="d-block mb-2"><strong>Data Casamento:</strong> {{ report.dataCasamento || "-" }}</span>
+				<span class="d-block mb-2"><strong>Matrícula:</strong> {{ report.matricula || "-" }}</span>
+				<span class="d-block mb-2"><strong>Data Entrada:</strong> {{ report.dataEntrada || "-" }}</span>
+				<span class="d-block mb-2"><strong>Data Registro:</strong> {{ report.dataRegistro || "-" }}</span>
+				<span class="d-block mb-2"><strong>Acervo:</strong> {{ report.acervo || "-" }}</span>
+				<span class="d-block mb-2"><strong>Número Livro:</strong> {{ report.nlivro || "-" }}</span>
+				<span class="d-block mb-2"><strong>Número Folha:</strong> {{ report.nfolha || "-" }}</span>
+				<span class="d-block mb-2"><strong>Número Registro:</strong> {{ report.nregistro || "-" }}</span>
+				<span class="d-block mb-2"><strong>Tipo Livro:</strong> {{ report.tipolivro || "-" }}</span>
+			</div>
+		</div>
+
+		<div #cadesp *ngIf="report.sucesso.includes('Cadesp')" class="col-12 mt-3 pt-3">
+			<div class="card p-4">
+				<h5 class="mb-1 font-weight-bold">Dados de Cadastro Empresarial</h5>
+				<hr>
+				<span class="d-block mb-2"><strong>CNPJ:</strong> {{ report.cnpj || "-" }}</span>
+				<span class="d-block mb-2"><strong>Nome Empresarial:</strong> {{ report.nomeEmpresarial || "-" }}</span>
+				<span class="d-block mb-2"><strong>DRT:</strong> {{ report.drt || "-" }}</span>
+				<span class="d-block mb-2"><strong>Situação:</strong> {{ report.situacao || "-" }}</span>
+				<span class="d-block mb-2"><strong>Data Inscrição Estado:</strong> {{ report.dtInscricaoEstado || "-" }}</span>
+				<span class="d-block mb-2"><strong>Regime Estadual:</strong> {{ report.regimeEstadual || "-" }}</span>
+				<span class="d-block mb-2"><strong>Posto Fiscal:</strong> {{ report.postoFiscal || "-" }}</span>
+				<span class="d-block mb-2"><strong>Nome Fantasia:</strong> {{ report.nomeFantasia || "-" }}</span>
+				<span class="d-block mb-2"><strong>NIRE:</strong> {{ report.nire || "-" }}</span>
+				<span class="d-block mb-2"><strong>Situação Cadastral:</strong> {{ report.situacaoCadastral || "-" }}</span>
+				<span class="d-block mb-2"><strong>Ocorrência Fiscal:</strong> {{ report.ocorrenciaFiscal || "-" }}</span>
+				<span class="d-block mb-2"><strong>Tipo Unidade:</strong> {{ report.tipoUnidade || "-" }}</span>
+				<span class="d-block mb-2"><strong>Data Início IE:</strong> {{ report.dtInicioIE || "-" }}</span>
+				<span class="d-block mb-2"><strong>Data Início Situação:</strong> {{ report.dtInicioSituacao || "-" }}</span>
+				<span class="d-block mb-2"><strong>Formas Atuação:</strong> {{ report.formasAtuacao || "-" }}</span>
+			</div>
+		</div>
+
+		<div #caged *ngIf="report.sucesso.includes('Caged')" class="col-12 mt-3 pt-3">
+			<div class="card p-4">
+				<h5 class="mb-1 font-weight-bold">Dados Administrativos do Trabalhador</h5>
+				<hr>
+				<div class="mb-3">
+					<h5 class="font-weight-bold">Autorizado Responsável</h5>
+					<span class="d-block mb-2"><strong>Bairro:</strong> {{ report.autorizado_responsavel?.bairro || '-' }}</span>
+					<span class="d-block mb-2"><strong>CEP:</strong> {{ report.autorizado_responsavel?.cep || '-' }}</span>
+					<span class="d-block mb-2"><strong>CNPJ CPF CEI:</strong>
+						{{ report.autorizado_responsavel?.cnpj_cpf_cei || '-' }}</span>
+					<span class="d-block mb-2"><strong>CPF:</strong> {{ report.autorizado_responsavel?.cpf || '-' }}</span>
+					<span class="d-block mb-2"><strong>Email:</strong> {{ report.autorizado_responsavel?.email || '-' }}</span>
+				</div>
+				<div class="mb-3">
+					<h5 class="font-weight-bold">Empresa</h5>
+					<span class="font-weight-bold d-block mb-2">Atividade Econômica CNAE</span>
+					<span class="d-block mb-2">{{report.empresa?.atividade_economica_cnae}}</span>
+					<span class="font-weight-bold d-block mb-2">Totais</span>
+					<span class="d-block mb-2">Admissões: {{report.empresa?.totais?.admissoes || "-"}}</span>
+					<span class="d-block mb-2">Desligamentos: {{report.empresa?.totais?.desligamentos || "-"}}</span>
+					<span class="d-block mb-2">Números filiais: {{report.empresa?.totais?.numeros_filiais || "-"}}</span>
+					<span class="d-block mb-2">Primeiro dia: {{report.empresa?.totais?.primeiro_dia || "-"}}</span>
+					<span class="d-block mb-2">Total vínculos: {{report.empresa?.totais?.total_vinculo || "-"}}</span>
+					<span class="d-block mb-2">Último dia: {{report.empresa?.totais?.ultimo_dia || "-"}}</span>
+					<span class="d-block mb-2">Variação absoluta: {{report.empresa?.variacao_absoluta || "-"}}</span>
+				</div>
+				<div class="mb-3">
+					<h5 class="font-weight-bold">Trabalhador</h5>
+					<span class="d-block mb-2"><strong>CPF:</strong> {{ report.trabalhador?.cpf || '-'}}</span>
+					<span class="d-block mb-2"><strong>CTPS:</strong> {{ report.trabalhador?.ctps || '-'}}</span>
+					<span class="d-block mb-2"><strong>Grau de Instrução:</strong>
+						{{ report.trabalhador?.grau_de_instrucao || '-'}}</span>
+					<span class="d-block mb-2"><strong>Nacionalidade:</strong>
+						{{ report.trabalhador?.nacionalidade || '-'}}</span>
+					<span class="d-block mb-2"><strong>Nome:</strong> {{ report.trabalhador?.nome || '-'}}</span>
+					<span class="d-block mb-2"><strong>PCD:</strong> {{ report.trabalhador?.pcd || '-'}}</span>
+					<span class="d-block mb-2"><strong>PIS Base:</strong> {{ report.trabalhador?.pis_base || '-'}}</span>
+					<span class="d-block mb-2"><strong>Raça:</strong> {{ report.trabalhador?.raca || '-'}}</span>
+					<span class="d-block mb-2"><strong>Sexo:</strong> {{ report.trabalhador?.sexo || '-'}}</span>
+					<span class="d-block mb-2"><strong>Situação PIS:</strong> {{ report.trabalhador?.situacao_pis || '-'}}</span>
+					<span class="font-weight-bold d-block">Tempo de trabalho</span>
+					<span class="d-block mb-2">CAGED: {{ report.trabalhador?.caged || '-'}}</span>
+					<span class="d-block mb-2">RAIS: {{ report.trabalhador?.rais || '-'}}</span>
+					<span class="font-weight-bold d-block">Vínculos do trabalhador</span>
+					<div class="d-flex flex-wrap">
+						<ng-container *ngFor="let vinculo of report.trabalhador?.vinculos_trabalhador">
+							<div class="custom-card">
+								<span class="d-block mb-2">CEI: {{ vinculo.cei || '-'}}</span>
+								<span class="d-block mb-2">CNPJ: {{ vinculo.cnpj || '-'}}</span>
+								<span class="d-block mb-2">Entrada: {{ vinculo.entrada || '-'}}</span>
+								<span class="d-block mb-2">Fonte: {{ vinculo.fonte || '-'}}</span>
+								<span class="d-block mb-2">Razão social: {{ vinculo.razao_social || '-'}}</span>
+								<span class="d-block mb-2">Saída: {{ vinculo.saida || '-'}}</span>
+								<span class="d-block mb-2">Situação: {{ vinculo.situacao || '-'}}</span>
+							</div>
+						</ng-container>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div #censec *ngIf="report.sucesso.includes('Censec')" class="col-12 mt-3 pt-3">
+			<div class="card p-4">
+				<h5 class="mb-1 font-weight-bold">Dados de Notas Públicas</h5>
+				<hr>
+				<div class="mb-3">
+					<span class="d-block mb-2"><strong>Carga:</strong> {{report.carga}}</span>
+					<span class="d-block mb-2"><strong>Mes:</strong> {{report.mes}}</span>
+					<span class="d-block mb-2"><strong>Ano:</strong> {{report.ano}}</span>
+					<span class="d-block mb-2"><strong>Ato:</strong> {{report.ato}}</span>
+					<span class="d-block mb-2"><strong>Dia do ato:</strong> {{report.diaDoAto}}</span>
+					<span class="d-block mb-2"><strong>Mes do ato:</strong> {{report.mesDoAto}}</span>
+					<span class="d-block mb-2"><strong>Ano do ato:</strong> {{report.anoDoAto}}</span>
+					<span class="d-block mb-2"><strong>Livro:</strong> {{report.livro}}</span>
+					<span class="d-block mb-2"><strong>Complemento livro:</strong> {{report.complementoLivro}}</span>
+					<span class="d-block mb-2"><strong>Folha:</strong> {{report.folha}}</span>
+					<span class="d-block mb-2"><strong>Complemento folha:</strong> {{report.complementoFolha}}</span>
+					<span class="d-block mb-2"><strong>UF:</strong> {{report.uf}}</span>
+					<span class="d-block mb-2"><strong>Município:</strong> {{report.municipio}}</span>
+					<span class="d-block mb-2"><strong>Cartório:</strong> {{report.cartorio}}</span>
+					<span class="font-weight-bold d-block">Pessoas</span>
+					<div class="d-flex flex-wrap">
+						<ng-container *ngFor="let pessoa of report.pessoas">
+							<div class="custom-card">
+								<span class="d-block mb-2">CPF: {{pessoa.cpf}}</span>
+								<span class="d-block mb-2">Nome: {{pessoa.nome}}</span>
+								<span class="d-block mb-2">Qualidade: {{pessoa.qualidade}}</span>
+							</div>
+						</ng-container>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div #detran *ngIf="report.sucesso.includes('Detran')" class="col-12 mt-3 pt-3">
+			<div class="card p-4">
+				<h5 class="mb-1 font-weight-bold">Dados do Motorista</h5>
+				<hr>
 				<!-- PDF -->
-				<ng-container *ngIf="report.arispPathPdf">
-					<pdf-viewer [fit-to-page]="true" [src]="pathBase+report.arispPathPdf" [render-text]="true"
+				<ng-container *ngFor="let pathPdf of report.detranPathPdf">
+					<pdf-viewer [fit-to-page]="true" [src]="pathBase+pathPdf" [render-text]="true" style="display: block;">
+					</pdf-viewer>
+				</ng-container>
+				<!-- IMG -->
+				<!-- <img src="" alt=""> -->
+			</div>
+		</div>
+
+		<div #infocrim *ngIf="report.sucesso.includes('Infocrim')" class="col-12 mt-3 pt-3">
+			<div class="card p-4">
+				<h5 class="mb-1 font-weight-bold">Dados Criminais</h5>
+				<hr>
+				<!-- PDF -->
+				<ng-container *ngIf="report.infocrimPathPdf">
+					<pdf-viewer [fit-to-page]="true" [src]="pathBase+report.infocrimPathPdf" [render-text]="true"
 						style="display: block;">
 					</pdf-viewer>
 				</ng-container>
 			</div>
 		</div>
 
-		<div #arpenp class="col-12 mt-3 card pt-3">
-			<h3 class="mb-1 font-weight-bold">ARPENP</h3>
-			<hr>
-			<span class="d-block mb-2"><strong>Carta registro:</strong> {{ report.cartregistro || "-" }}</span>
-			<span class="d-block mb-2"><strong>CNS:</strong> {{ report.cns || "-" }}</span>
-			<span class="d-block mb-2"><strong>Nome 1:</strong> {{ report.nome1 || "-" }}</span>
-			<span class="d-block mb-2"><strong>Novo nome 1:</strong> {{ report.nvnome1 || "-" }}</span>
-			<span class="d-block mb-2"><strong>Nome 2:</strong> {{ report.nome2 || "-" }}</span>
-			<span class="d-block mb-2"><strong>Novo nome 2:</strong> {{ report.nvnome2 || "-" }}</span>
-			<span class="d-block mb-2"><strong>Data Casamento:</strong> {{ report.dataCasamento || "-" }}</span>
-			<span class="d-block mb-2"><strong>Matrícula:</strong> {{ report.matricula || "-" }}</span>
-			<span class="d-block mb-2"><strong>Data Entrada:</strong> {{ report.dataEntrada || "-" }}</span>
-			<span class="d-block mb-2"><strong>Data Registro:</strong> {{ report.dataRegistro || "-" }}</span>
-			<span class="d-block mb-2"><strong>Acervo:</strong> {{ report.acervo || "-" }}</span>
-			<span class="d-block mb-2"><strong>Número Livro:</strong> {{ report.nlivro || "-" }}</span>
-			<span class="d-block mb-2"><strong>Número Folha:</strong> {{ report.nfolha || "-" }}</span>
-			<span class="d-block mb-2"><strong>Número Registro:</strong> {{ report.nregistro || "-" }}</span>
-			<span class="d-block mb-2"><strong>Tipo Livro:</strong> {{ report.tipolivro || "-" }}</span>
-		</div>
-
-		<div #cadesp class="col-12 mt-3 card pt-3">
-			<h3 class="mb-1 font-weight-bold">CADESP</h3>
-			<hr>
-			<span class="d-block mb-2"><strong>CNPJ:</strong> {{ report.cnpj || "-" }}</span>
-			<span class="d-block mb-2"><strong>Nome Empresarial:</strong> {{ report.nomeEmpresarial || "-" }}</span>
-			<span class="d-block mb-2"><strong>DRT:</strong> {{ report.drt || "-" }}</span>
-			<span class="d-block mb-2"><strong>Situação:</strong> {{ report.situacao || "-" }}</span>
-			<span class="d-block mb-2"><strong>Data Inscrição Estado:</strong> {{ report.dtInscricaoEstado || "-" }}</span>
-			<span class="d-block mb-2"><strong>Regime Estadual:</strong> {{ report.regimeEstadual || "-" }}</span>
-			<span class="d-block mb-2"><strong>Posto Fiscal:</strong> {{ report.postoFiscal || "-" }}</span>
-			<span class="d-block mb-2"><strong>Nome Fantasia:</strong> {{ report.nomeFantasia || "-" }}</span>
-			<span class="d-block mb-2"><strong>NIRE:</strong> {{ report.nire || "-" }}</span>
-			<span class="d-block mb-2"><strong>Situação Cadastral:</strong> {{ report.situacaoCadastral || "-" }}</span>
-			<span class="d-block mb-2"><strong>Ocorrência Fiscal:</strong> {{ report.ocorrenciaFiscal || "-" }}</span>
-			<span class="d-block mb-2"><strong>Tipo Unidade:</strong> {{ report.tipoUnidade || "-" }}</span>
-			<span class="d-block mb-2"><strong>Data Início IE:</strong> {{ report.dtInicioIE || "-" }}</span>
-			<span class="d-block mb-2"><strong>Data Início Situação:</strong> {{ report.dtInicioSituacao || "-" }}</span>
-			<span class="d-block mb-2"><strong>Formas Atuação:</strong> {{ report.formasAtuacao || "-" }}</span>
-		</div>
-
-		<div #caged class="col-12 mt-3 card pt-3">
-			<h3 class="mb-1 font-weight-bold">CAGED</h3>
-			<hr>
-			<div class="mb-3">
-				<h5 class="font-weight-bold">Autorizado Responsável</h5>
-				<span class="d-block mb-2"><strong>Bairro:</strong> {{ report.autorizado_responsavel?.bairro || '-' }}</span>
-				<span class="d-block mb-2"><strong>CEP:</strong> {{ report.autorizado_responsavel?.cep || '-' }}</span>
-				<span class="d-block mb-2"><strong>CNPJ CPF CEI:</strong>
-					{{ report.autorizado_responsavel?.cnpj_cpf_cei || '-' }}</span>
-				<span class="d-block mb-2"><strong>CPF:</strong> {{ report.autorizado_responsavel?.cpf || '-' }}</span>
-				<span class="d-block mb-2"><strong>Email:</strong> {{ report.autorizado_responsavel?.email || '-' }}</span>
-			</div>
-			<div class="mb-3">
-				<h5 class="font-weight-bold">Empresa</h5>
-				<span class="font-weight-bold d-block mb-2">Atividade Econômica CNAE</span>
-				<span class="d-block mb-2">{{report.empresa?.atividade_economica_cnae}}</span>
-				<span class="font-weight-bold d-block mb-2">Totais</span>
-				<span class="d-block mb-2">Admissões: {{report.empresa?.totais?.admissoes || "-"}}</span>
-				<span class="d-block mb-2">Desligamentos: {{report.empresa?.totais?.desligamentos || "-"}}</span>
-				<span class="d-block mb-2">Números filiais: {{report.empresa?.totais?.numeros_filiais || "-"}}</span>
-				<span class="d-block mb-2">Primeiro dia: {{report.empresa?.totais?.primeiro_dia || "-"}}</span>
-				<span class="d-block mb-2">Total vínculos: {{report.empresa?.totais?.total_vinculo || "-"}}</span>
-				<span class="d-block mb-2">Último dia: {{report.empresa?.totais?.ultimo_dia || "-"}}</span>
-				<span class="d-block mb-2">Variação absoluta: {{report.empresa?.variacao_absoluta || "-"}}</span>
-			</div>
-			<div class="mb-3">
-				<h5 class="font-weight-bold">Trabalhador</h5>
-				<span class="d-block mb-2"><strong>CPF:</strong> {{ report.trabalhador?.cpf || '-'}}</span>
-				<span class="d-block mb-2"><strong>CTPS:</strong> {{ report.trabalhador?.ctps || '-'}}</span>
-				<span class="d-block mb-2"><strong>Grau de Instrução:</strong>
-					{{ report.trabalhador?.grau_de_instrucao || '-'}}</span>
-				<span class="d-block mb-2"><strong>Nacionalidade:</strong> {{ report.trabalhador?.nacionalidade || '-'}}</span>
-				<span class="d-block mb-2"><strong>Nome:</strong> {{ report.trabalhador?.nome || '-'}}</span>
-				<span class="d-block mb-2"><strong>PCD:</strong> {{ report.trabalhador?.pcd || '-'}}</span>
-				<span class="d-block mb-2"><strong>PIS Base:</strong> {{ report.trabalhador?.pis_base || '-'}}</span>
-				<span class="d-block mb-2"><strong>Raça:</strong> {{ report.trabalhador?.raca || '-'}}</span>
-				<span class="d-block mb-2"><strong>Sexo:</strong> {{ report.trabalhador?.sexo || '-'}}</span>
-				<span class="d-block mb-2"><strong>Situação PIS:</strong> {{ report.trabalhador?.situacao_pis || '-'}}</span>
-				<span class="font-weight-bold d-block">Tempo de trabalho</span>
-				<span class="d-block mb-2">CAGED: {{ report.trabalhador?.caged || '-'}}</span>
-				<span class="d-block mb-2">RAIS: {{ report.trabalhador?.rais || '-'}}</span>
-				<span class="font-weight-bold d-block">Vínculos do trabalhador</span>
-				<div class="d-flex flex-wrap">
-					<ng-container *ngFor="let vinculo of report.trabalhador?.vinculos_trabalhador">
-						<div class="custom-card">
-							<span class="d-block mb-2">CEI: {{ vinculo.cei || '-'}}</span>
-							<span class="d-block mb-2">CNPJ: {{ vinculo.cnpj || '-'}}</span>
-							<span class="d-block mb-2">Entrada: {{ vinculo.entrada || '-'}}</span>
-							<span class="d-block mb-2">Fonte: {{ vinculo.fonte || '-'}}</span>
-							<span class="d-block mb-2">Razão social: {{ vinculo.razao_social || '-'}}</span>
-							<span class="d-block mb-2">Saída: {{ vinculo.saida || '-'}}</span>
-							<span class="d-block mb-2">Situação: {{ vinculo.situacao || '-'}}</span>
-						</div>
+		<div #jucesp *ngIf="report.sucesso.includes('Jucesp')" class="col-12 mt-3 pt-3">
+			<div class="card p-4">
+				<h5 class="mb-1 font-weight-bold">Dados de Pessoa Jurídica</h5>
+				<hr>
+				<div class="mb-3">
+					<span class="d-block mb-2"><strong>Nome da empresa:</strong> {{ report.nomeDaEmpresa || '-'}}</span>
+					<span class="d-block mb-2"><strong>Tipo de empresa:</strong> {{ report.tipoDeEmpresa || '-'}}</span>
+					<span class="d-block mb-2"><strong>Data da constituicao:</strong> {{ report.dataDaConstituicao || '-'}}</span>
+					<span class="d-block mb-2"><strong>Inicio da atividade:</strong> {{ report.inicioDaAtividade || '-'}}</span>
+					<span class="d-block mb-2"><strong>CNPJ:</strong> {{ report.cnpj || '-'}}</span>
+					<span class="d-block mb-2"><strong>Capital:</strong> {{ report.capital || '-'}}</span>
+					<span class="d-block mb-2"><strong>Logradouro:</strong> {{ report.logradouro || '-'}}</span>
+					<span class="d-block mb-2"><strong>Bairro:</strong> {{ report.bairro || '-'}}</span>
+					<span class="d-block mb-2"><strong>Municipio:</strong> {{ report.municipio || '-'}}</span>
+					<span class="d-block mb-2"><strong>Numero:</strong> {{ report.numero || '-'}}</span>
+					<span class="d-block mb-2"><strong>Complemento:</strong> {{ report.complemento || '-'}}</span>
+					<span class="d-block mb-2"><strong>CEP:</strong> {{ report.cep || '-'}}</span>
+					<span class="d-block mb-2"><strong>UF:</strong> {{ report.uf || '-'}}</span>
+					<!-- PDF -->
+					<ng-container *ngIf="report.jucespPathPdf">
+						<pdf-viewer [fit-to-page]="true" [src]="pathBase+report.jucespPathPdf" [render-text]="true"
+							style="display: block;">
+						</pdf-viewer>
 					</ng-container>
 				</div>
 			</div>
 		</div>
 
-		<div #censec class="col-12 mt-3 card pt-3">
-			<h3 class="mb-1 font-weight-bold">CENSEC</h3>
-			<hr>
-			<div class="mb-3">
-				<span class="d-block mb-2"><strong>Carga:</strong> {{report.carga}}</span>
-				<span class="d-block mb-2"><strong>Mes:</strong> {{report.mes}}</span>
-				<span class="d-block mb-2"><strong>Ano:</strong> {{report.ano}}</span>
-				<span class="d-block mb-2"><strong>Ato:</strong> {{report.ato}}</span>
-				<span class="d-block mb-2"><strong>Dia do ato:</strong> {{report.diaDoAto}}</span>
-				<span class="d-block mb-2"><strong>Mes do ato:</strong> {{report.mesDoAto}}</span>
-				<span class="d-block mb-2"><strong>Ano do ato:</strong> {{report.anoDoAto}}</span>
-				<span class="d-block mb-2"><strong>Livro:</strong> {{report.livro}}</span>
-				<span class="d-block mb-2"><strong>Complemento livro:</strong> {{report.complementoLivro}}</span>
-				<span class="d-block mb-2"><strong>Folha:</strong> {{report.folha}}</span>
-				<span class="d-block mb-2"><strong>Complemento folha:</strong> {{report.complementoFolha}}</span>
-				<span class="d-block mb-2"><strong>UF:</strong> {{report.uf}}</span>
-				<span class="d-block mb-2"><strong>Município:</strong> {{report.municipio}}</span>
-				<span class="d-block mb-2"><strong>Cartório:</strong> {{report.cartorio}}</span>
-				<span class="font-weight-bold d-block">Pessoas</span>
-				<div class="d-flex flex-wrap">
-					<ng-container *ngFor="let pessoa of report.pessoas">
-						<div class="custom-card">
-							<span class="d-block mb-2">CPF: {{pessoa.cpf}}</span>
-							<span class="d-block mb-2">Nome: {{pessoa.nome}}</span>
-							<span class="d-block mb-2">Qualidade: {{pessoa.qualidade}}</span>
-						</div>
-					</ng-container>
+		<div #siel *ngIf="report.sucesso.includes('Siel')" class="col-12 mt-3 pt-3">
+			<div class="card p-4">
+				<h5 class="mb-1 font-weight-bold">Dados Eleitorais</h5>
+				<hr>
+				<div class="mb-3">
+					<span class="d-block mb-2"><strong>Nome:</strong> {{ report.nome || '-'}}</span>
+					<span class="d-block mb-2"><strong>Título:</strong> {{ report.titulo || '-'}}</span>
+					<span class="d-block mb-2"><strong>Nascimento:</strong> {{ report.nascimento || '-'}}</span>
+					<span class="d-block mb-2"><strong>Zona:</strong> {{ report.zona || '-'}}</span>
+					<span class="d-block mb-2"><strong>Endereço:</strong> {{ report.endereco || '-'}}</span>
+					<span class="d-block mb-2"><strong>Município:</strong> {{ report.municipio || '-'}}</span>
+					<span class="d-block mb-2"><strong>UF:</strong> {{ report.uf || '-'}}</span>
+					<span class="d-block mb-2"><strong>Data domicílio:</strong> {{ report.dataDomicilio || '-'}}</span>
+					<span class="d-block mb-2"><strong>Nome do pai:</strong> {{ report.nomePai || '-'}}</span>
+					<span class="d-block mb-2"><strong>Nome da mãe:</strong> {{ report.nomeMae || '-'}}</span>
+					<span class="d-block mb-2"><strong>Naturalidade:</strong> {{ report.naturalidade || '-'}}</span>
+					<span class="d-block mb-2"><strong>Código validação:</strong> {{ report.cdValidacao || '-'}}</span>
 				</div>
 			</div>
 		</div>
 
-		<div #detran class="col-12 mt-3 card pt-3">
-			<h3 class="mb-1 font-weight-bold">DETRAN</h3>
-			<hr>
-			<!-- PDF -->
-			<ng-container *ngFor="let pathPdf of report.detranPathPdf">
-				<pdf-viewer [fit-to-page]="true" [src]="pathBase+pathPdf" [render-text]="true" style="display: block;">
-				</pdf-viewer>
-			</ng-container>
-			<!-- IMG -->
-		</div>
-
-		<div #infocrim class="col-12 mt-3 card pt-3">
-			<h3 class="mb-1 font-weight-bold">INFOCRIM</h3>
-			<hr>
-			<!-- PDF -->
-			<ng-container *ngIf="report.infocrimPathPdf">
-				<pdf-viewer [fit-to-page]="true" [src]="pathBase+report.infocrimPathPdf" [render-text]="true"
-					style="display: block;">
-				</pdf-viewer>
-			</ng-container>
-		</div>
-
-		<div #jucesp class="col-12 mt-3 card pt-3">
-			<h3 class="mb-1 font-weight-bold">JUCESP</h3>
-			<hr>
-			<div class="mb-3">
-				<span class="d-block mb-2"><strong>Nome da empresa:</strong> {{ report.nomeDaEmpresa || '-'}}</span>
-				<span class="d-block mb-2"><strong>Tipo de empresa:</strong> {{ report.tipoDeEmpresa || '-'}}</span>
-				<span class="d-block mb-2"><strong>Data da constituicao:</strong> {{ report.dataDaConstituicao || '-'}}</span>
-				<span class="d-block mb-2"><strong>Inicio da atividade:</strong> {{ report.inicioDaAtividade || '-'}}</span>
-				<span class="d-block mb-2"><strong>CNPJ:</strong> {{ report.cnpj || '-'}}</span>
-				<span class="d-block mb-2"><strong>Capital:</strong> {{ report.capital || '-'}}</span>
-				<span class="d-block mb-2"><strong>Logradouro:</strong> {{ report.logradouro || '-'}}</span>
-				<span class="d-block mb-2"><strong>Bairro:</strong> {{ report.bairro || '-'}}</span>
-				<span class="d-block mb-2"><strong>Municipio:</strong> {{ report.municipio || '-'}}</span>
-				<span class="d-block mb-2"><strong>Numero:</strong> {{ report.numero || '-'}}</span>
-				<span class="d-block mb-2"><strong>Complemento:</strong> {{ report.complemento || '-'}}</span>
-				<span class="d-block mb-2"><strong>CEP:</strong> {{ report.cep || '-'}}</span>
-				<span class="d-block mb-2"><strong>UF:</strong> {{ report.uf || '-'}}</span>
-				<!-- PDF -->
-				<ng-container *ngIf="report.jucespPathPdf">
-					<pdf-viewer [fit-to-page]="true" [src]="pathBase+report.jucespPathPdf" [render-text]="true"
-						style="display: block;">
-					</pdf-viewer>
-				</ng-container>
-			</div>
-		</div>
-
-		<div #siel class="col-12 mt-3 card pt-3">
-			<h3 class="mb-1 font-weight-bold">SIEL</h3>
-			<hr>
-			<div class="mb-3">
-				<span class="d-block mb-2"><strong>Nome:</strong> {{ report.nome || '-'}}</span>
-				<span class="d-block mb-2"><strong>Título:</strong> {{ report.titulo || '-'}}</span>
-				<span class="d-block mb-2"><strong>Nascimento:</strong> {{ report.nascimento || '-'}}</span>
-				<span class="d-block mb-2"><strong>Zona:</strong> {{ report.zona || '-'}}</span>
-				<span class="d-block mb-2"><strong>Endereço:</strong> {{ report.endereco || '-'}}</span>
-				<span class="d-block mb-2"><strong>Município:</strong> {{ report.municipio || '-'}}</span>
-				<span class="d-block mb-2"><strong>UF:</strong> {{ report.uf || '-'}}</span>
-				<span class="d-block mb-2"><strong>Data domicílio:</strong> {{ report.dataDomicilio || '-'}}</span>
-				<span class="d-block mb-2"><strong>Nome do pai:</strong> {{ report.nomePai || '-'}}</span>
-				<span class="d-block mb-2"><strong>Nome da mãe:</strong> {{ report.nomeMae || '-'}}</span>
-				<span class="d-block mb-2"><strong>Naturalidade:</strong> {{ report.naturalidade || '-'}}</span>
-				<span class="d-block mb-2"><strong>Código validação:</strong> {{ report.cdValidacao || '-'}}</span>
-			</div>
-		</div>
-
-		<div #sivec class="col-12 mt-3 card pt-3">
-			<h3 class="mb-1 font-weight-bold">SIVEC</h3>
-			<hr>
-			<div class="mb-3">
-				<span class="d-block mb-2"><strong>Nome:</strong> {{ report.nome || '-'}}</span>
-				<span class="d-block mb-2"><strong>Data de nascimento:</strong> {{ report.dtNscto || '-'}}</span>
-				<span class="d-block mb-2"><strong>Número VEC:</strong> {{ report.nroVEC || '-'}}</span>
-				<span class="d-block mb-2"><strong>Sexo:</strong> {{ report.sexo || '-'}}</span>
-				<span class="d-block mb-2"><strong>Rg:</strong> {{ report.rg || '-'}}</span>
-				<span class="d-block mb-2"><strong>Tipo RG:</strong> {{ report.tipoRg || '-'}}</span>
-				<span class="d-block mb-2"><strong>Data de emissao do RG:</strong> {{ report.dtEmissaoRg || '-'}}</span>
-				<span class="d-block mb-2"><strong>Estado civil:</strong> {{ report.estadoCivil || '-'}}</span>
-				<span class="d-block mb-2"><strong>Naturalizado:</strong> {{ report.naturalizado || '-'}}</span>
-				<span class="d-block mb-2"><strong>Grau instrução:</strong> {{ report.grauInstrucao || '-'}}</span>
-				<span class="d-block mb-2"><strong>Nome do pai:</strong> {{ report.nomePai || '-'}}</span>
-				<span class="d-block mb-2"><strong>Nome da mãe:</strong> {{ report.nomeMae || '-'}}</span>
-				<span class="d-block mb-2"><strong>Cor da pele:</strong> {{ report.corPele || '-'}}</span>
-				<span class="d-block mb-2"><strong>Alcunha:</strong> {{ report.alcunha || '-'}}</span>
-				<span class="d-block mb-2"><strong>Naturalidade:</strong> {{ report.naturalidade || '-'}}</span>
-				<span class="d-block mb-2"><strong>Posto de identificaçã:o</strong> {{ report.postoIdentificacao || '-'}}</span>
-				<span class="d-block mb-2"><strong>Fórmula fundamental:</strong> {{ report.formulaFundamental || '-'}}</span>
-				<span class="d-block mb-2"><strong>Cor dos olhos:</strong> {{ report.corOlhos || '-'}}</span>
-				<span class="d-block mb-2"><strong>Cabelo:</strong> {{ report.cabelo || '-'}}</span>
-				<span class="d-block mb-2"><strong>Profissão:</strong> {{ report.profissao || '-'}}</span>
-				<span class="d-block mb-2"><strong>Endereço residencial:</strong> {{ report.endResidencial || '-'}}</span>
-				<span class="d-block mb-2"><strong>Endereço trabalho:</strong> {{ report.endTrabalho || '-'}}</span>
+		<div #sivec *ngIf="report.sucesso.includes('Sivec')" class="col-12 mt-3 pt-3">
+			<div class="card p-4">
+				<h5 class="mb-1 font-weight-bold">Dados Judiciais</h5>
+				<hr>
+				<div class="mb-3">
+					<span class="d-block mb-2"><strong>Nome:</strong> {{ report.nome || '-'}}</span>
+					<span class="d-block mb-2"><strong>Data de nascimento:</strong> {{ report.dtNscto || '-'}}</span>
+					<span class="d-block mb-2"><strong>Número VEC:</strong> {{ report.nroVEC || '-'}}</span>
+					<span class="d-block mb-2"><strong>Sexo:</strong> {{ report.sexo || '-'}}</span>
+					<span class="d-block mb-2"><strong>RG:</strong> {{ report.rg || '-'}}</span>
+					<span class="d-block mb-2"><strong>Tipo RG:</strong> {{ report.tipoRg || '-'}}</span>
+					<span class="d-block mb-2"><strong>Data de emissao do RG:</strong> {{ report.dtEmissaoRg || '-'}}</span>
+					<span class="d-block mb-2"><strong>Estado civil:</strong> {{ report.estadoCivil || '-'}}</span>
+					<span class="d-block mb-2"><strong>Naturalizado:</strong> {{ report.naturalizado || '-'}}</span>
+					<span class="d-block mb-2"><strong>Grau instrução:</strong> {{ report.grauInstrucao || '-'}}</span>
+					<span class="d-block mb-2"><strong>Nome do pai:</strong> {{ report.nomePai || '-'}}</span>
+					<span class="d-block mb-2"><strong>Nome da mãe:</strong> {{ report.nomeMae || '-'}}</span>
+					<span class="d-block mb-2"><strong>Cor da pele:</strong> {{ report.corPele || '-'}}</span>
+					<span class="d-block mb-2"><strong>Alcunha:</strong> {{ report.alcunha || '-'}}</span>
+					<span class="d-block mb-2"><strong>Naturalidade:</strong> {{ report.naturalidade || '-'}}</span>
+					<span class="d-block mb-2"><strong>Posto de identificaçã:o</strong>
+						{{ report.postoIdentificacao || '-'}}</span>
+					<span class="d-block mb-2"><strong>Fórmula fundamental:</strong> {{ report.formulaFundamental || '-'}}</span>
+					<span class="d-block mb-2"><strong>Cor dos olhos:</strong> {{ report.corOlhos || '-'}}</span>
+					<span class="d-block mb-2"><strong>Cabelo:</strong> {{ report.cabelo || '-'}}</span>
+					<span class="d-block mb-2"><strong>Profissão:</strong> {{ report.profissao || '-'}}</span>
+					<span class="d-block mb-2"><strong>Endereço residencial:</strong> {{ report.endResidencial || '-'}}</span>
+					<span class="d-block mb-2"><strong>Endereço trabalho:</strong> {{ report.endTrabalho || '-'}}</span>
+				</div>
 			</div>
 		</div>
 

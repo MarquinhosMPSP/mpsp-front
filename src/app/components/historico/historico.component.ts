@@ -1,10 +1,4 @@
-import {
-  Component,
-  Input,
-  Output,
-  EventEmitter,
-  SimpleChanges
-} from "@angular/core";
+import { Component, Input, Output, EventEmitter } from "@angular/core";
 
 @Component({
   selector: "app-historico",
@@ -14,6 +8,13 @@ import {
 export class HistoricoComponent {
   @Input("history") history: any;
   @Output() changeView = new EventEmitter();
+  @Output() modalOpen = new EventEmitter();
+
+  search: string = "";
 
   constructor() {}
+
+  showTooltip = event => {
+    (<any>$(event.target.children[0])).tooltip();
+  };
 }

@@ -1,117 +1,141 @@
 <div class="body">
   <app-menu></app-menu>
   <div class="container content">
-
-    <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="box">
-          <app-historico [history]="history" (changeView)="changeView($event)"></app-historico>
-        </div>
-      </div>
-
-      <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="box">
-          <div class="d-flex justify-content-between">
-            <h3>Novo</h3>
-            <i-feather name="plus-circle">
-            </i-feather>
-          </div>
-          <hr />
-          <div class="row">
-            <div class="col-12">
-              <h5><strong>Dados Pessoa Fisíca</strong></h5>
-              <hr>
-            </div>
-            <div class="col-lg-3">
-              <div class="form-group">
-                <label for="cpf">CPF</label>
-                <input type="text" name="cpf" class="form-control" [(ngModel)]="cpf" (ngModelChange)="validatePortals()"
-                  placeholder="Digite o CPF" />
-              </div>
-            </div>
-            <div class="col-lg-3">
-              <div class="form-group">
-                <label for="rg">RG</label>
-                <input type="text" name="rg" class="form-control" [(ngModel)]="rg" (ngModelChange)="validatePortals()"
-                  placeholder="Digite o RG" />
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="form-group">
-                <label for="nome">Nome</label>
-                <input type="text" name="nome" class="form-control" [(ngModel)]="nome"
-                  (ngModelChange)="validatePortals()" placeholder="Digite o nome" />
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <h5><strong>Dados Pessoa Jurídica</strong></h5>
-              <hr>
-            </div>
-            <div class="col-lg-3">
-              <div class="form-group">
-                <label for="cnpj">CNPJ</label>
-                <input type="text" name="cnpj" class="form-control" [(ngModel)]="cnpj"
-                  (ngModelChange)="validatePortals()" placeholder="Digite o CNPJ" />
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="form-group">
-                <label for="empresa">Empresa</label>
-                <input type="text" name="empresa" class="form-control" [(ngModel)]="empresa"
-                  (ngModelChange)="validatePortals()" placeholder="Digite a empresa" />
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <h5><strong>Dados Trabalhador</strong></h5>
-              <hr>
-            </div>
-            <div class="col-lg-3">
-              <div class="form-group">
-                <label for="nrprocesso">Número do processo</label>
-                <input type="text" name="nrprocesso" class="form-control" [(ngModel)]="nrprocesso"
-                  (ngModelChange)="validatePortals()" placeholder="Digite o número do processo" />
-              </div>
-            </div>
-            <div class="col-lg-3">
-              <div class="form-group">
-                <label for="pispasep">PIS/PASEP</label>
-                <input type="text" name="pispasep" class="form-control" [(ngModel)]="pispasep"
-                  (ngModelChange)="validatePortals()" placeholder="Digite o PIS/PASEP" />
-              </div>
-            </div>
-          </div>
-          <p class="text-danger">
-            * Os portais que serão utilizados estão relacionados com os campos preenchidos.
-          </p>
-          <span class="text-break">
-            Portais: <strong>{{portaisValidados}}</strong>
-          </span>
-          <div class="d-flex justify-content-center mt-2 align-items-center">
-            <button class="btn btn-indigo btn-lg" (click)="generateReport()">
-              Gerar relatório
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col">
-        <div #visualizacao class="box">
-          <app-relatorio [report]="report" (export)="export()"></app-relatorio>
-        </div>
-      </div>
-    </div>
+    <app-historico [history]="history" (modalOpen)="openModal()" (changeView)="changeView($event)">
+    </app-historico>
   </div>
 
   <div class="footer">
     <div class="d-flex bg-white p-3 justify-content-center">
-      <span>Desenvolvido por <strong>DJIR</strong> - 2019</span>
+      <span><strong>UNIKOR</strong> | 2019</span>
     </div>
   </div>
 
+</div>
+
+<div id="formModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          Novo Relatório
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row mt-1">
+          <div class="col-12">
+            <h5>Dados Pessoa Fisíca</h5>
+            <hr>
+          </div>
+          <div class="col-lg-3">
+            <div class="form-group">
+              <label for="cpf">CPF</label>
+              <input type="text" name="cpf" class="form-control" [(ngModel)]="cpf" (ngModelChange)="validatePortals()"
+                placeholder="Digite o CPF" />
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="form-group">
+              <label for="rg">RG</label>
+              <input type="text" name="rg" class="form-control" [(ngModel)]="rg" (ngModelChange)="validatePortals()"
+                placeholder="Digite o RG" />
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label for="nome">Nome</label>
+              <input type="text" name="nome" class="form-control" [(ngModel)]="nome" (ngModelChange)="validatePortals()"
+                placeholder="Digite o nome" />
+            </div>
+          </div>
+        </div>
+        <div class="row mt-1">
+          <div class="col-12">
+            <h5>Dados Pessoa Jurídica</h5>
+            <hr>
+          </div>
+          <div class="col-lg-3">
+            <div class="form-group">
+              <label for="cnpj">CNPJ</label>
+              <input type="text" name="cnpj" class="form-control" [(ngModel)]="cnpj" (ngModelChange)="validatePortals()"
+                placeholder="Digite o CNPJ" />
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label for="empresa">Empresa</label>
+              <input type="text" name="empresa" class="form-control" [(ngModel)]="empresa"
+                (ngModelChange)="validatePortals()" placeholder="Digite a empresa" />
+            </div>
+          </div>
+        </div>
+        <div class="row mt-1">
+          <div class="col-12">
+            <h5>Dados Trabalhador</h5>
+            <hr>
+          </div>
+          <div class="col-lg-3">
+            <div class="form-group">
+              <label for="nrprocesso">Número do processo</label>
+              <input type="text" name="nrprocesso" class="form-control" [(ngModel)]="nrprocesso"
+                (ngModelChange)="validatePortals()" placeholder="Digite o número do processo" />
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="form-group">
+              <label for="pispasep">PIS/PASEP</label>
+              <input type="text" name="pispasep" class="form-control" [(ngModel)]="pispasep"
+                (ngModelChange)="validatePortals()" placeholder="Digite o PIS/PASEP" />
+            </div>
+          </div>
+        </div>
+        <p class="text-danger">
+          * Os portais que serão utilizados estão relacionados com os campos preenchidos.
+        </p>
+        <span class="text-break">
+          Portais: <strong>{{portaisValidados}}</strong>
+        </span>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger" data-dismiss="modal">
+          Cancelar
+        </button>
+        <button class="btn btn-indigo" (click)="generateReport()">
+          Gerar relatório
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="viewModal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header d-flex justify-content-between align-items-center">
+        <h5 class="modal-title">Visualização</h5>
+        <div>
+          <span>Gerado em: {{report?.dataRelatorio}}</span>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+      <div class="modal-body modal-height">
+        <app-relatorio [report]="report" (export)="export()"></app-relatorio>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button class="btn btn-indigo" (click)="export()">
+          <span class="mr-2">PDF</span>
+          <i-feather name="download" style="height: 20px; width: 20px; cursor:pointer">
+          </i-feather>
+        </button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" aria-label="Close">
+          Fechar
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

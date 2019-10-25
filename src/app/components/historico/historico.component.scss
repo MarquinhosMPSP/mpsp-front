@@ -1,4 +1,24 @@
 .body {
-  max-height: 30vh;
+  max-height: 100vh;
   overflow: auto;
+}
+
+tr:hover,
+tr:hover span {
+  color: #6610f2 !important;
+  transition: all ease 1s;
+}
+
+.input-group input {
+  border-right: 0;
+  box-shadow: none;
+}
+
+.input-group .input-group-append .input-group-text {
+  background: transparent;
+}
+
+.form-control:focus + .input-group-append .input-group-text {
+  background: transparent;
+  border-color: #80bdff;
 }
