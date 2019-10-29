@@ -7,8 +7,7 @@ import {
   Renderer2
 } from "@angular/core";
 import { environment } from "src/environments/environment";
-import * as jsPDF from "jspdf";
-import html2canvas from "html2canvas";
+import { TemplatePDF, TemplateStyle } from "src/app/templates/template";
 
 @Component({
   selector: "app-relatorio",
@@ -36,31 +35,29 @@ export class RelatorioComponent implements OnInit {
   ngOnInit() {}
 
   export() {
-    this.renderer.removeClass(this.reportEl.nativeElement, "body");
+    let pdf = window.open("", "", "height=700,width=700");
+    pdf.document.write("<html><head>");
+    pdf.document.write("<title>Empregados</title>");
+    pdf.document.write(TemplateStyle);
+    pdf.document.write("</head>");
+    pdf.document.write("<body>");
+    pdf.document.write(TemplatePDF(this.report, this.pathBase));
+    pdf.document.write("</body></html>");
+    pdf.document.close();
+    setTimeout(() => {
+      pdf.print();
+    }, 1000);
 
-    html2canvas(document.querySelector("#reportContent"), {
-      allowTaint: true
-    }).then(function(canvas) {
-      var imgData = canvas.toDataURL("image/jpeg", 1.0);
-      var imgWidth = 210;
-      var pageHeight = 295;
-      var imgHeight = (canvas.height * imgWidth) / canvas.width;
-      var heightLeft = imgHeight;
-      var doc = new jsPDF("p", "mm");
-      var position = 0;
-
-      doc.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
-      heightLeft -= pageHeight;
-
-      while (heightLeft >= 0) {
-        position = heightLeft - imgHeight;
-        doc.addPage();
-        doc.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
-      }
-      doc.save("file.pdf");
-    });
-
-    this.renderer.addClass(this.reportEl.nativeElement, "body");
+    // let opt = {
+    //   margin: 1,
+    //   filename: "teste.pdf",
+    //   image: { type: "jpeg", quality: 1 },
+    //   html2canvas: { scale: 2 },
+    //   jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }
+    // };
+    // html2pdf()
+    //   .from(this.reportEl.nativeElement)
+    //   .set(opt)
+    //   .save();
   }
 }

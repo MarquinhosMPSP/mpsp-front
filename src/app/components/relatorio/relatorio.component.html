@@ -7,8 +7,8 @@
 				<div class="mb-3">
 					<!-- PDF -->
 					<ng-container *ngIf="report.arispPathPdf">
-						<pdf-viewer [fit-to-page]="true" [src]="pathBase+report.arispPathPdf" [render-text]="true"
-							style="display: block;">
+						<pdf-viewer [autoresize]="true" [show-all]="true" [fit-to-page]="true" [src]="pathBase+report.arispPathPdf"
+							[render-text]="true" style="display: block;">
 						</pdf-viewer>
 					</ng-container>
 				</div>
@@ -159,11 +159,12 @@
 				<hr>
 				<!-- PDF -->
 				<ng-container *ngFor="let pathPdf of report.detranPathPdf">
-					<pdf-viewer [fit-to-page]="true" [src]="pathBase+pathPdf" [render-text]="true" style="display: block;">
+					<pdf-viewer [autoresize]="true" [fit-to-page]="true" [src]="pathBase+pathPdf" [render-text]="true"
+						style="display: block;">
 					</pdf-viewer>
 				</ng-container>
 				<!-- IMG -->
-				<!-- <img src="" alt=""> -->
+				<img class="w-50 mx-auto" [src]="pathBase+report.detranPathImg" alt="Detran">
 			</div>
 		</div>
 
@@ -173,8 +174,8 @@
 				<hr>
 				<!-- PDF -->
 				<ng-container *ngIf="report.infocrimPathPdf">
-					<pdf-viewer [fit-to-page]="true" [src]="pathBase+report.infocrimPathPdf" [render-text]="true"
-						style="display: block;">
+					<pdf-viewer [autoresize]="true" [fit-to-page]="true" [src]="pathBase+report.infocrimPathPdf"
+						[render-text]="true" style="display: block;">
 					</pdf-viewer>
 				</ng-container>
 			</div>
@@ -200,8 +201,8 @@
 					<span class="d-block mb-2"><strong>UF:</strong> {{ report.uf || '-'}}</span>
 					<!-- PDF -->
 					<ng-container *ngIf="report.jucespPathPdf">
-						<pdf-viewer [fit-to-page]="true" [src]="pathBase+report.jucespPathPdf" [render-text]="true"
-							style="display: block;">
+						<pdf-viewer [autoresize]="true" [fit-to-page]="true" [src]="pathBase+report.jucespPathPdf"
+							[render-text]="true" style="display: block;">
 						</pdf-viewer>
 					</ng-container>
 				</div>

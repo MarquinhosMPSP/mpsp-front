@@ -1,10 +1,17 @@
-import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  EventEmitter
+} from "@angular/core";
 import { ReportService } from "../../services/report.service";
 import { ToastrService } from "ngx-toastr";
 import { LoginService } from "../../services/login.service";
 import { environment } from "src/environments/environment";
 import * as io from "socket.io-client";
 import * as jsPDF from "jspdf";
+import { RelatorioComponent } from "src/app/components/relatorio/relatorio.component";
 
 @Component({
   selector: "app-consulta",
@@ -12,7 +19,6 @@ import * as jsPDF from "jspdf";
   styleUrls: ["./consulta.component.scss"]
 })
 export class ConsultaComponent implements OnInit {
-  @ViewChild("reportContent", { static: false }) reportContent: ElementRef;
   socket: any;
   report: any;
   history: any;
@@ -25,7 +31,7 @@ export class ConsultaComponent implements OnInit {
   nrprocesso: string = null;
   pispasep: string = null;
 
-  portaisValidados = ["Infocrim"];
+  portaisValidados = [];
 
   constructor(
     private reportService: ReportService,
@@ -62,7 +68,7 @@ export class ConsultaComponent implements OnInit {
       Caged: () => this.isValid(this.cnpj && this.pispasep),
       Censec: () => this.isValid(this.cpf || this.cnpj),
       Detran: () => this.isValid(this.cpf || this.cnpj),
-      Infocrim: () => true,
+      Infocrim: () => this.isValid(this.nome),
       Jucesp: () => this.isValid(this.empresa),
       Siel: () => this.isValid(this.nome && this.nrprocesso),
       Sivec: () => this.isValid(this.rg && this.nome)
@@ -122,21 +128,6 @@ export class ConsultaComponent implements OnInit {
       }
     });
   }
-
-  export() {
-    let pdf = new jsPDF();
-    let counter = 0;
-    pdf.setFontSize(10);
-    this.report.fields.forEach(element => {
-      pdf.setFontStyle("bold");
-      pdf.text(`${element.name}:`, 10, counter);
-      pdf.setFontStyle("normal");
-      pdf.text(`${element.content}:`, 55, counter);
-      counter += 10;
-    });
-    pdf.output("dataurlnewwindow");
-  }
-
   transformReport = data =>
     Object.entries(data)
       .filter(([header]) => !["__v"].includes(header))

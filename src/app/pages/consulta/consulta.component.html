@@ -124,10 +124,10 @@
         </div>
       </div>
       <div class="modal-body modal-height">
-        <app-relatorio [report]="report" (export)="export()"></app-relatorio>
+        <app-relatorio #relatorio [report]="report"></app-relatorio>
       </div>
       <div class="modal-footer justify-content-between">
-        <button class="btn btn-indigo" (click)="export()">
+        <button class="btn btn-indigo" (click)="relatorio.export()">
           <span class="mr-2">PDF</span>
           <i-feather name="download" style="height: 20px; width: 20px; cursor:pointer">
           </i-feather>
