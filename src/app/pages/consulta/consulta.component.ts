@@ -81,6 +81,20 @@ export class ConsultaComponent implements OnInit {
 
   isValid = item => item != null && item != "";
 
+  validateForm = () =>
+    !(
+      this.isValid(this.cpf || this.cnpj) ||
+      this.isValid(this.nrprocesso) ||
+      this.isValid(this.cnpj) ||
+      this.isValid(this.cnpj && this.pispasep) ||
+      this.isValid(this.cpf || this.cnpj) ||
+      this.isValid(this.cpf || this.cnpj) ||
+      this.isValid(this.nome) ||
+      this.isValid(this.empresa) ||
+      this.isValid(this.nome && this.nrprocesso) ||
+      this.isValid(this.rg && this.nome)
+    );
+
   changeView(id) {
     (<any>$("#viewModal")).modal("toggle");
     this.report = this.history.filter(item => item._id == id)[0];

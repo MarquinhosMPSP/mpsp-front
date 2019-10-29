@@ -1,6 +1,9 @@
 export const TemplateStyle: string = `<style>
 *{
 		font-family: sans-serif;
+		padding: 0;
+		margin: 0;
+		box-sizing: border-box;
 	}
 
 	.custom-card {
@@ -11,30 +14,46 @@ export const TemplateStyle: string = `<style>
 		padding: 0.7em;
 		background: #f3f3f3;
 	}
+
+	@media print {
+		
+		* {
+			font: 12pt Georgia, "Times New Roman", Times, serif;
+			line-height: 1;
+		}
+		@page {
+			margin: 0.5cm;
+		}
+	
+ 	}
 </style>`;
 
 export const TemplatePDF = (report, pathBase): string => `
-<div id="reportContent" style="display: flex;flex-wrap: wrap;margin-right: -15px;margin-left: -15px; text-transform: uppercase;">
+<section id="reportContent" style="display: flex;flex-wrap: wrap;margin-right: -15px;margin-left: -15px; text-transform: uppercase;">
 ${
   report.sucesso.includes("Arisp")
-    ? `<div style="flex: 0 0 100%; padding-top: 1rem;">
+    ? `<section style="flex: 0 0 100%; padding-top: 1rem;">
 		<div style="padding: 1.5rem;">
 			<h5 style="margin-bottom: 0.25rem; font-weight:bold; font-size: 1.25rem;">Dados Imobiliários</h5>
 			<hr>
 			<div style="margin-bottom: 1rem; margin: 0 auto;">
 				<!-- PDF -->
 				${report.arispPathImg
-          .map(img => `<img src="${pathBase + img}"></img>`)
+          .map(
+            img =>
+              `<img style="max-width: 100%; display: block; max-height: 80%;" src="${pathBase +
+                img}"></img>`
+          )
           .join("")}
 			</div>
 		</div>
-	</div>`
+	</section>`
     : ""
 }
 
 	${
     report.sucesso.includes("Arpenp")
-      ? `<div style="flex: 0 0 100%; max-width: 100%; margin-top: 1rem; padding-top: 1rem;">
+      ? `<section style="flex: 0 0 100%; max-width: 100%; margin-top: 1rem; padding-top: 1rem;">
 		<div style="padding: 1.5rem;">
 			<h5 style="margin-bottom: 0.25rem; font-weight:bold; font-size: 1.25rem;">Dados de Registro Civil</h5>
 			<hr>
@@ -69,13 +88,13 @@ ${
 			<span style="display: block; margin-bottom: 0.5rem;"><strong>Tipo Livro:</strong>
 				${report.tipolivro || "-"}</span>
 		</div>
-	</div>`
+	</section>`
       : ""
   }
 
 	${
     report.sucesso.includes("Cadesp")
-      ? `<div style="flex: 0 0 100%; max-width: 100%; margin-top: 1rem; padding-top: 1rem;">
+      ? `<section style="flex: 0 0 100%; max-width: 100%; margin-top: 1rem; padding-top: 1rem;">
 		<div style="padding: 1.5rem;">
 			<h5 style="margin-bottom: 0.25rem; font-weight:bold; font-size: 1.25rem;">Dados de Cadastro Empresarial</h5>
 			<hr>
@@ -110,13 +129,13 @@ ${
 			<span style="display: block; margin-bottom: 0.5rem;"><strong>Formas Atuação:</strong>
 				${report.formasAtuacao || "-"}</span>
 		</div>
-	</div>`
+	</section>`
       : ""
   }
 
 ${
   report.sucesso.includes("Caged")
-    ? `<div style="flex: 0 0 100%; max-width: 100%; margin-top: 1rem; padding-top: 1rem;">
+    ? `<section style="flex: 0 0 100%; max-width: 100%; margin-top: 1rem; padding-top: 1rem;">
 		<div style="padding: 1.5rem;">
 			<h5 style="margin-bottom: 0.25rem; font-weight:bold; font-size: 1.25rem;">Dados Administrativos do Trabalhador
 			</h5>
@@ -211,13 +230,13 @@ ${
 				</div>
 			</div>
 		</div>
-	</div>`
+	</section>`
     : ""
 }
 
 ${
   report.sucesso.includes("Censec")
-    ? `<div style="flex: 0 0 100%; max-width: 100%; margin-top: 1rem; padding-top: 1rem;">
+    ? `<section style="flex: 0 0 100%; max-width: 100%; margin-top: 1rem; padding-top: 1rem;">
 		<div style="padding: 1.5rem;">
 			<h5 style="margin-bottom: 0.25rem; font-weight:bold; font-size: 1.25rem;">Dados de Notas Públicas</h5>
 			<hr>
@@ -277,43 +296,51 @@ ${
 				</div>
 			</div>
 		</div>
-	</div>`
+	</section>`
     : ""
 }
 
 ${
   report.sucesso.includes("Detran")
-    ? `<div style="flex: 0 0 100%; max-width: 100%; margin-top: 1rem; padding-top: 1rem;">
+    ? `<section style="flex: 0 0 100%; max-width: 100%; margin-top: 1rem; padding-top: 1rem;">
 				<div style="padding: 1.5rem;">
 					<h5 style="margin-bottom: 0.25rem; font-weight:bold; font-size: 1.25rem;">Dados do Motorista</h5>
 					<hr>
 					<!-- PDFS -->
 					${report.detranPathImg
-            .map(img => `<img src="${pathBase + img}"></img>`)
+            .map(
+              img =>
+                `<img style="max-width: 100%; display: block; max-height: 80%;" src="${pathBase +
+                  img}"></img>`
+            )
             .join("")}
 				</div>
-			</div>`
+			</section>`
     : ""
 }
 
 ${
   report.sucesso.includes("Infocrim")
-    ? `<div style="flex: 0 0 100%; max-width: 100%; margin-top: 1rem; padding-top: 1rem;">
+    ? `<section style="flex: 0 0 100%; max-width: 100%; margin-top: 1rem; padding-top: 1rem;">
 		<div style="padding: 1.5rem;">
 			<h5 style="margin-bottom: 0.25rem; font-weight:bold; font-size: 1.25rem;">Dados Criminais</h5>
 			<hr>
 			<!-- PDF -->
 			${report.infocrimPathImg
-        .map(img => `<img src="${pathBase + img}"></img>`)
+        .map(
+          img =>
+            `<img style="max-width: 100%; display: block; max-height: 80%;" src="${pathBase +
+              img}"></img>`
+        )
         .join("")}
 		</div>
-	</div>`
+	</section>`
     : ""
 }
 
 ${
   report.sucesso.includes("Jucesp")
-    ? `<div style="flex: 0 0 100%; max-width: 100%; margin-top: 1rem; padding-top: 1rem;">
+    ? `<section style="flex: 0 0 100%; max-width: 100%; margin-top: 1rem; padding-top: 1rem;">
 		<div style="padding: 1.5rem;">
 			<h5 style="margin-bottom: 0.25rem; font-weight:bold; font-size: 1.25rem;">Dados de Pessoa Jurídica</h5>
 			<hr>
@@ -346,17 +373,21 @@ ${
           "-"}</span>
 				<!-- PDF -->
 				${report.jucespPathImg
-          .map(img => `<img src="${pathBase + img}"></img>`)
+          .map(
+            img =>
+              `<img style="max-width: 100%; display: block; max-height: 80%;" src="${pathBase +
+                img}"></img>`
+          )
           .join("")}
 			</div>
 		</div>
-	</div>`
+	</section>`
     : ""
 }
 
 ${
   report.sucesso.includes("Siel")
-    ? `	<div style="flex: 0 0 100%; max-width: 100%; margin-top: 1rem; padding-top: 1rem;">
+    ? `<section style="flex: 0 0 100%; max-width: 100%; margin-top: 1rem; padding-top: 1rem;">
 		<div style="padding: 1.5rem;">
 			<h5 style="margin-bottom: 0.25rem; font-weight:bold; font-size: 1.25rem;">Dados Eleitorais</h5>
 			<hr>
@@ -387,13 +418,13 @@ ${
 					${report.cdValidacao || "-"}</span>
 			</div>
 		</div>
-	</div>`
+	</section>`
     : ""
 }
 
 ${
   report.sucesso.includes("Sivec")
-    ? `<div style="flex: 0 0 100%; max-width: 100%; margin-top: 1rem; padding-top: 1rem;">
+    ? `<section style="flex: 0 0 100%; max-width: 100%; margin-top: 1rem; padding-top: 1rem;">
 		<div style="padding: 1.5rem;">
 			<h5 style="margin-bottom: 0.25rem; font-weight:bold; font-size: 1.25rem;">Dados Judiciais</h5>
 			<hr>
@@ -444,7 +475,7 @@ ${
 					${report.endTrabalho || "-"}</span>
 			</div>
 		</div>
-	</div>
+	</section>
 </div>`
     : ""
 }

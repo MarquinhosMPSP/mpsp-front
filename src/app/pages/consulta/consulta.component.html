@@ -103,7 +103,7 @@
         <button class="btn btn-danger" data-dismiss="modal">
           Cancelar
         </button>
-        <button class="btn btn-indigo" (click)="generateReport()">
+        <button class="btn btn-indigo" [disabled]="validateForm()" (click)="generateReport()">
           Gerar relatório
         </button>
       </div>

@@ -35,9 +35,12 @@ export class RelatorioComponent implements OnInit {
   ngOnInit() {}
 
   export() {
-    let pdf = window.open("", "", "height=700,width=700");
-    pdf.document.write("<html><head>");
-    pdf.document.write("<title>Empregados</title>");
+    let pdf = window.open("");
+    pdf.document.write("<html !doctype><head>");
+    pdf.document.write("<title>Relatório</title>");
+    pdf.document.write(
+      "<meta http-equiv='Content-Type' content='text/html; charset='></meta>"
+    );
     pdf.document.write(TemplateStyle);
     pdf.document.write("</head>");
     pdf.document.write("<body>");
