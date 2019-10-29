@@ -24,15 +24,14 @@ export const TemplateStyle: string = `<style>
 		@page {
 			margin: 0.5cm;
 		}
-	
  	}
 </style>`;
 
 export const TemplatePDF = (report, pathBase): string => `
-<section id="reportContent" style="display: flex;flex-wrap: wrap;margin-right: -15px;margin-left: -15px; text-transform: uppercase;">
+<section id="reportContent" style="margin-right: -15px;margin-left: -15px; text-transform: uppercase;">
 ${
   report.sucesso.includes("Arisp")
-    ? `<section style="flex: 0 0 100%; padding-top: 1rem;">
+    ? `<section>
 		<div style="padding: 1.5rem;">
 			<h5 style="margin-bottom: 0.25rem; font-weight:bold; font-size: 1.25rem;">Dados Imobiliários</h5>
 			<hr>
@@ -53,7 +52,7 @@ ${
 
 	${
     report.sucesso.includes("Arpenp")
-      ? `<section style="flex: 0 0 100%; max-width: 100%; margin-top: 1rem; padding-top: 1rem;">
+      ? `<section>
 		<div style="padding: 1.5rem;">
 			<h5 style="margin-bottom: 0.25rem; font-weight:bold; font-size: 1.25rem;">Dados de Registro Civil</h5>
 			<hr>
@@ -94,7 +93,7 @@ ${
 
 	${
     report.sucesso.includes("Cadesp")
-      ? `<section style="flex: 0 0 100%; max-width: 100%; margin-top: 1rem; padding-top: 1rem;">
+      ? `<section>
 		<div style="padding: 1.5rem;">
 			<h5 style="margin-bottom: 0.25rem; font-weight:bold; font-size: 1.25rem;">Dados de Cadastro Empresarial</h5>
 			<hr>
@@ -135,7 +134,7 @@ ${
 
 ${
   report.sucesso.includes("Caged")
-    ? `<section style="flex: 0 0 100%; max-width: 100%; margin-top: 1rem; padding-top: 1rem;">
+    ? `<section>
 		<div style="padding: 1.5rem;">
 			<h5 style="margin-bottom: 0.25rem; font-weight:bold; font-size: 1.25rem;">Dados Administrativos do Trabalhador
 			</h5>
@@ -236,7 +235,7 @@ ${
 
 ${
   report.sucesso.includes("Censec")
-    ? `<section style="flex: 0 0 100%; max-width: 100%; margin-top: 1rem; padding-top: 1rem;">
+    ? `<section>
 		<div style="padding: 1.5rem;">
 			<h5 style="margin-bottom: 0.25rem; font-weight:bold; font-size: 1.25rem;">Dados de Notas Públicas</h5>
 			<hr>
@@ -302,7 +301,7 @@ ${
 
 ${
   report.sucesso.includes("Detran")
-    ? `<section style="flex: 0 0 100%; max-width: 100%; margin-top: 1rem; padding-top: 1rem;">
+    ? `<section>
 				<div style="padding: 1.5rem;">
 					<h5 style="margin-bottom: 0.25rem; font-weight:bold; font-size: 1.25rem;">Dados do Motorista</h5>
 					<hr>
@@ -321,7 +320,7 @@ ${
 
 ${
   report.sucesso.includes("Infocrim")
-    ? `<section style="flex: 0 0 100%; max-width: 100%; margin-top: 1rem; padding-top: 1rem;">
+    ? `<section>
 		<div style="padding: 1.5rem;">
 			<h5 style="margin-bottom: 0.25rem; font-weight:bold; font-size: 1.25rem;">Dados Criminais</h5>
 			<hr>
@@ -340,7 +339,7 @@ ${
 
 ${
   report.sucesso.includes("Jucesp")
-    ? `<section style="flex: 0 0 100%; max-width: 100%; margin-top: 1rem; padding-top: 1rem;">
+    ? `<section>
 		<div style="padding: 1.5rem;">
 			<h5 style="margin-bottom: 0.25rem; font-weight:bold; font-size: 1.25rem;">Dados de Pessoa Jurídica</h5>
 			<hr>
@@ -387,7 +386,7 @@ ${
 
 ${
   report.sucesso.includes("Siel")
-    ? `<section style="flex: 0 0 100%; max-width: 100%; margin-top: 1rem; padding-top: 1rem;">
+    ? `<section>
 		<div style="padding: 1.5rem;">
 			<h5 style="margin-bottom: 0.25rem; font-weight:bold; font-size: 1.25rem;">Dados Eleitorais</h5>
 			<hr>
@@ -424,7 +423,7 @@ ${
 
 ${
   report.sucesso.includes("Sivec")
-    ? `<section style="flex: 0 0 100%; max-width: 100%; margin-top: 1rem; padding-top: 1rem;">
+    ? `<section>
 		<div style="padding: 1.5rem;">
 			<h5 style="margin-bottom: 0.25rem; font-weight:bold; font-size: 1.25rem;">Dados Judiciais</h5>
 			<hr>
